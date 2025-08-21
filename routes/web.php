@@ -23,4 +23,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/complaints-details/{id}', [DashboardController::class, 'firDetails'])
         ->name('complaints.details');
 });
+// Route::get('/webhook', [DashboardController::class, 'verifyWebhook']);
+// //Route::post('/webhook', 'App\Http\Controllers\Admin\DashboardController@handleWebhook')->name('handleWebhook');;
+// Route::post('/webhook', 'App\Http\Controllers\Admin\WebhookController@handleWebhook')->name('handleWebhook');;
 
+//Route::post('/reset-password', 'App\Http\Controllers\ForgotPasswordController@submitResetPasswordForm')->name('reset.password.post');
