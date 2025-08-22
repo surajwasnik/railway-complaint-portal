@@ -20,8 +20,6 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
     Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
-    Route::get('/complaints-details/{id}', [DashboardController::class, 'firDetails'])
-        ->name('complaints.details');
 });
 // Route::get('/webhook', [DashboardController::class, 'verifyWebhook']);
 // //Route::post('/webhook', 'App\Http\Controllers\Admin\DashboardController@handleWebhook')->name('handleWebhook');;
