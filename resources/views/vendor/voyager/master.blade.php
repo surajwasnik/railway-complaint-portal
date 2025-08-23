@@ -113,7 +113,7 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
                 })();
             </script>
             <!-- Main Content -->
-            <div class="container-fluid">
+            <div class="container-fluid height-full">
                 <div class="side-body padding-top">
                     <div class="dashboard-body">
                         @yield('page_header')
