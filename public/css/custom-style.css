@@ -44,7 +44,7 @@ body.custom-style .login-button {
 }
 
 /*--------------------- Dashboard Styling --------------------*/
-.voyager.main-style .app-footer{
+.voyager.main-style .app-footer {
     display: none;
 }
 .app-container.custom-style {
@@ -56,19 +56,25 @@ body.custom-style .login-button {
 .app-container.custom-style .side-body.padding-top {
     padding: 60px 0px 15px 0px;
     margin-right: 0px;
-    height: 100vh;
     margin-left: 285px;
 }
-.app-container.custom-style .app-footer{
+.app-container.custom-style .app-footer {
     display: none;
 }
 .app-container.custom-style .dashboard-body {
     background-color: #f4f6f8;
     border-radius: 32px;
     height: 100%;
+    padding: 0px 5px;
+    padding-bottom: 50px;
+    height: calc(100vh - 75px);
 }
-
-
+.voyager.main-style .page-title {
+    padding-left: 20px;
+}
+.voyager.main-style .app-container .side-body .container-fluid {
+    padding-right: 15px;
+}
 
 /*--------------------- Sidebar Styling --------------------*/
 .app-container.custom-style .side-menu.sidebar-style {
@@ -79,8 +85,8 @@ body.custom-style .login-button {
     width: 300px;
 }
 
-.voyager.main-style .side-menu .navbar li.active{
-    background-color: #F4F6F8;
+.voyager.main-style .side-menu .navbar li.active {
+    background-color: #f4f6f8;
     position: relative;
     overflow: unset;
     border-radius: 10px 0px 0px 10px;
@@ -108,20 +114,249 @@ body.custom-style .login-button {
     height: 30px;
     transform: scaleY(-1); /* flips vertically */
 }
-.voyager.main-style .side-menu.sidebar-inverse .navbar li.active>a{
-    color: #1C398E;
+.voyager.main-style .side-menu.sidebar-inverse .navbar li.active > a {
+    color: #1c398e;
 }
-.voyager.main-style .side-menu.sidebar-inverse .navbar li>a:hover{
-    background:  #f4f6f821;
+.voyager.main-style .side-menu.sidebar-inverse .navbar li > a:hover {
+    background: #f4f6f821;
     border-radius: 10px 0px 0px 10px;
 }
 .voyager.main-style .side-menu .navbar-nav {
-    margin-top: 50%;
     padding-left: 40px;
 }
-.voyager.main-style .panel.bgimage{
+.voyager.main-style .panel.bgimage {
     display: none;
 }
-.voyager.main-style .app-container .content-container .side-menu .navbar-nav li a .title {
-    display: inline-block;
+
+
+
+/*--------------------- Table Styling --------------------*/
+.table-container {
+    overflow: hidden;
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px; /* Changed from border-spacing: 0; */
+    font-size: 14px;
+}
+
+.modern-table th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modern-table td {
+    padding: 16px 20px;
+    vertical-align: middle;
+    color: #212529;
+}
+
+.modern-table tbody tr {
+    transition: background-color 0.2s;
+    background-color: #f8fafc;
+    border: 1px solid #3141581a;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.043);
+    border-radius: 12px;
+}
+
+.modern-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.modern-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.status-active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-active::before {
+    background-color: #28a745;
+}
+
+.status-inactive {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-inactive::before {
+    background-color: #dc3545;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-pending::before {
+    background-color: #ffc107;
+}
+
+/* Action buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Style Voyager action buttons */
+.action-buttons a,
+.action-buttons button,
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 1px solid #dee2e6;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-size: 12px;
+    color: #495057;
+    margin: 0;
+}
+
+.action-buttons a:hover,
+.action-buttons button:hover,
+.action-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style specific Voyager buttons by class or icon */
+.action-buttons a[title*="View"],
+.action-buttons a[href*="show"],
+.btn-sm.btn-warning {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.action-buttons a[title*="Edit"],
+.action-buttons a[href*="edit"],
+.btn-sm.btn-primary {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.action-buttons a[title*="Delete"],
+.action-buttons button[title*="Delete"],
+.btn-sm.btn-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.action-buttons a[title*="View"]:hover,
+.btn-sm.btn-warning:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.action-buttons a[title*="Edit"]:hover,
+.btn-sm.btn-primary:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.action-buttons a[title*="Delete"]:hover,
+.btn-sm.btn-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Override Voyager default button styles */
+.action-buttons .btn {
+    margin: 0 !important;
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Role badge styling */
+.role-badge {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.role-admin {
+    background-color: #dc3545;
+    color: white;
+}
+
+.role-user {
+    background-color: #007bff;
+    color: white;
+}
+
+.role-moderator {
+    background-color: #28a745;
+    color: white;
+}
+
+.role-editor {
+    background-color: #ffc107;
+    color: #856404;
+}
+
+
+
+
+/*-------------------------- Navbar Styling --------------------------*/
+.logo-icon-container{
+    width: 100px;
+}
+.voyager.main-style .app-container .content-container .side-menu .navbar-header .navbar-brand .logo-icon-container{
+    height: unset;
+    width: 100%;
+}
+.voyager.main-style .app-container .content-container .side-menu .navbar-header .navbar-brand {
+    overflow: unset;
+    height: 100%;
+}
+.voyager.main-style  .side-menu .navbar-header{
+    background: unset;
+    border-color: unset;
+    padding: 30px 0px;
 }
