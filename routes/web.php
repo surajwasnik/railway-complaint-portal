@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ComplaintController;
 use Illuminate\Support\Facades\Route;
@@ -23,12 +24,15 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::get('/', [DashboardController::class, 'index'])->name('voyager.dashboard');
+    Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
 });
 // Route::group(['prefix' => 'admin', 'middleware' => ['web', 'admin.user']], function () {
 //     Route::get('/stations', 'App\Http\Controllers\StationsController@index')->name('voyager.index');
 //     // Route::get('/stations', [StationsController::class, 'statistics'])
 //     //     ->name('voyager.stations.statistics');
 // });
+
 Route::get('/stations', 'App\Http\Controllers\Admin\StationsController@index')->name('stations.index');
 
 Route::get('/register', [UserController::class, 'create'])->name('user.register');
