@@ -122,3 +122,6 @@ body.custom-style .login-button {
 .voyager.main-style .panel.bgimage{
     display: none;
 }
+.voyager.main-style .app-container .content-container .side-menu .navbar-nav li a .title {
+    display: inline-block;
+}
