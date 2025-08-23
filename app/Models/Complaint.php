@@ -24,7 +24,7 @@ class Complaint extends Model
     // If you want Laravel to automatically handle created_at and updated_at
     public $timestamps = true;
     protected $fillable = [
-        'user_id',
+        'id',
         'station_id',
         'fir_number',
         'complainant_name',

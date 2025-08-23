@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ComplaintController;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Http\Controllers\StationsController;
 
@@ -34,3 +35,11 @@ Route::get('/register', [UserController::class, 'create'])->name('user.register'
 Route::post('/register', [UserController::class, 'store'])->name('user.store');
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+
+    Route::post('complaints/import', [ComplaintController::class, 'import'])
+        ->name('voyager.complaints.import');
+});
