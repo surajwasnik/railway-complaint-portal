@@ -1,0 +1,124 @@
+/*--------------------- Login Styling --------------------*/
+body.login.custom-style .login-sidebar {
+    border: none;
+}
+body.custom-style .hidden-xs.sec-hide {
+    display: none;
+}
+body.custom-style .col-md-12.login-sidebar {
+    background-image: url(../images/texture.png);
+    background-size: unset;
+    background-repeat: repeat;
+    background-color: #1c388e;
+}
+.texture-bg {
+    background-image: url(../images/login-bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    background-position: center center;
+}
+body.custom-style .login-container {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    background-color: white;
+    border: 1px solid #3141581a;
+    border-radius: 12px;
+    margin-top: 0px;
+}
+body.custom-style .login-button {
+    width: 100%;
+    border-radius: 10px;
+    background-color: #1c398ef0;
+    opacity: 1;
+}
+.logo-sec {
+    text-align: center;
+}
+.logo-img {
+    width: 140px;
+    margin: 0px auto;
+}
+
+/*--------------------- Dashboard Styling --------------------*/
+.voyager.main-style .app-footer{
+    display: none;
+}
+.app-container.custom-style {
+    background-image: url(../images/texture.png);
+    background-size: unset;
+    background-repeat: repeat;
+    background-color: #1c388e;
+}
+.app-container.custom-style .side-body.padding-top {
+    padding: 60px 0px 15px 0px;
+    margin-right: 0px;
+    height: 100vh;
+    margin-left: 285px;
+}
+.app-container.custom-style .app-footer{
+    display: none;
+}
+.app-container.custom-style .dashboard-body {
+    background-color: #f4f6f8;
+    border-radius: 32px;
+    height: 100%;
+}
+
+
+
+/*--------------------- Sidebar Styling --------------------*/
+.app-container.custom-style .side-menu.sidebar-style {
+    background-image: url(../images/texture.png);
+    background-size: unset;
+    background-repeat: repeat;
+    background-color: #1c388e;
+    width: 300px;
+}
+
+.voyager.main-style .side-menu .navbar li.active{
+    background-color: #F4F6F8;
+    position: relative;
+    overflow: unset;
+    border-radius: 10px 0px 0px 10px;
+}
+.voyager.main-style .side-menu .navbar li.active:before {
+    content: "";
+    background-image: url(../images//corner.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0px;
+    top: -30px;
+    width: 30px;
+    height: 30px;
+}
+.voyager.main-style .side-menu .navbar li.active:after {
+    content: "";
+    background-image: url(../images/corner.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0px;
+    bottom: -30px;
+    width: 30px;
+    height: 30px;
+    transform: scaleY(-1); /* flips vertically */
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li.active>a{
+    color: #1C398E;
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li>a:hover{
+    background:  #f4f6f821;
+    border-radius: 10px 0px 0px 10px;
+}
+.voyager.main-style .side-menu .navbar-nav {
+    margin-top: 50%;
+    padding-left: 40px;
+}
+.voyager.main-style .panel.bgimage{
+    display: none;
+}
