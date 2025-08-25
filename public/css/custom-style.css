@@ -87,7 +87,6 @@ body.custom-style .login-button {
     height: 100%;
     padding: 0px 5px;
     padding-bottom: 50px;
-    /* height: calc(100vh - 75px); */
 }
 .voyager.main-style .page-title {
     padding-left: 20px;
@@ -200,9 +199,6 @@ body.custom-style .login-button {
 }
 .voyager.main-style .app-container.expanded .content-container .navbar-top {
     padding-left: 300px;
-}
-.app-container .content-container .side-menu .navbar-nav li a .title {
-    display: inline-block;
 }
 
 /*--------------------- Table Styling --------------------*/
@@ -459,4 +455,7 @@ body.custom-style .login-button {
 }
 .app-container.custom-style.expanded .side-body.padding-top {
     margin-left: 83px;
+}
+.app-container .content-container .side-menu .navbar-nav li a .title {
+    display: inline-block;
 }

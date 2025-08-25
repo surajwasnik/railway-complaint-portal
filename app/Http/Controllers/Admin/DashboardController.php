@@ -153,29 +153,6 @@ class DashboardController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
         return $response->json();
     }
 
-    // public function dashboard()
-    // {
-    //     $user = Auth::user();
-    //     if(!$user){
-    //         return Voyager::view('voyager::login');
-    //     }
-    //     // $total_declined  = $total_approved = 0;
-
-    //     // $total_declined  = Helper::get_photodata_by_status(0);
-    //     // $total_approved  = Helper::get_photodata_by_status(1);
-
-    //     //  $recent_gen_photo = PhotoApprovals::orderBy('id', 'DESC')->limit(5)->get()->toArray();
-
-    //     // $data = [
-    //     //     'total_declined'    => $total_declined,
-    //     //     'total_approved'    => $total_approved,
-    //     //     'recent_gen_photo'  => $recent_gen_photo,
-    //     // ];
-
-    //    // return Voyager::view('voyager::index', compact('data'));
-    //     return Voyager::view('voyager::index');
-    // }
-
     public function refreshFacebookToken()
 {
     try {
@@ -208,5 +185,27 @@ class DashboardController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
         ], 500);
     }
 }
+ public function index(Request $request)
+    {
+        $user = Auth::user();
+        if(!$user){
+            return Voyager::view('voyager::login');
+        }
+         $totalComplaints = Complaint::count();
+        $pendingComplaints = Complaint::where('status', 1)->count();
+        $investigationComplaints = Complaint::where('status', 2)->count();
+        $detectedRecoveredComplaints = Complaint::where('status', 3)->count();
+
+        // All complaints
+       $complaints = Complaint::latest()->limit(10)->get();
+        return view('vendor.voyager.dashboard.index', compact(
+            'totalComplaints',
+            'pendingComplaints',
+            'investigationComplaints',
+            'detectedRecoveredComplaints',
+            'complaints'
+        ));
+
+    }
 
 }
