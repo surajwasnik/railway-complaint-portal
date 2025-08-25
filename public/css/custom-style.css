@@ -67,7 +67,6 @@ body.custom-style .login-button {
     height: 100%;
     padding: 0px 5px;
     padding-bottom: 50px;
-    height: calc(100vh - 75px);
 }
 .voyager.main-style .page-title {
     padding-left: 20px;

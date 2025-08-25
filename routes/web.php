@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ComplaintController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\StationsController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
 
@@ -29,13 +30,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('complaints/import', [ComplaintController::class, 'import'])
         ->name('voyager.complaints.import');
 });
-// Route::group(['prefix' => 'admin', 'middleware' => ['web', 'admin.user']], function () {
-//     Route::get('/stations', 'App\Http\Controllers\StationsController@index')->name('voyager.index');
-//     // Route::get('/stations', [StationsController::class, 'statistics'])
-//     //     ->name('voyager.stations.statistics');
-// });
 
-Route::get('/stations', 'App\Http\Controllers\Admin\StationsController@index')->name('stations.index');
+Route::get('/stations', [StationsController::class, 'index'])->name('stations.index');
 
 Route::get('/register', [UserController::class, 'create'])->name('user.register');
 Route::post('/register', [UserController::class, 'store'])->name('user.store');
