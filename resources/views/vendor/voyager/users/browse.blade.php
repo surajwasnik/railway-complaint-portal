@@ -101,4 +101,24 @@
     </div><!-- ./sp-row -->
     @include('voyager::multilingual.language-selector')
 </div><!-- ./container-fluid -->
+
+@stop
+@section('javascript')
+    <!-- DataTables -->
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "order": [],
+                "language": {!! json_encode(__('voyager::datatable'), true) !!},
+                "columnDefs": [{"targets": -1, "searchable":  false, "orderable": false}]
+                @if(config('dashboard.data_tables.responsive')), responsive: true @endif
+            });
+        });
+
+        $('td').on('click', '.delete', function (e) {
+            $('#delete_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.destroy', ['id' => '__menu']) }}'.replace('__menu', $(this).data('id'));
+
+            $('#delete_modal').modal('show');
+        });
+    </script>
 @stop
