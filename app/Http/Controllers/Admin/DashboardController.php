@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use App\Models\PhotoApprovals;
-use Carbon\Carbon;
 use App\Helpers\Helper;
 use App\Models\Complaint;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 class DashboardController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
 {
 
     private $clientId;
     private $clientSecret;
     private $verifyToken;
-    private $whatsappToken;
+    private $whatsappAccessToken;
     private $phoneNumberId;
 
     public function __construct()
@@ -99,7 +96,7 @@ class DashboardController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
 
             return response()->json(['status' => 'ok'], 200);
         } catch (\Exception $e) {
-            \Log::error("Webhook error: " . $e->getMessage());
+            Log::error("Webhook error: " . $e->getMessage());
             return response()->json(['error' => 'Server error'], 500);
         }
     }
@@ -128,9 +125,9 @@ class DashboardController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
                 "body" => $whatsappMessages[0]
             ],
         ];
-    $response = \Http::withOptions(['verify' => false])->withToken($this->whatsappAccessToken)->post($url, $payload);
+    $response = Http::withOptions(['verify' => false])->withToken($this->whatsappAccessToken)->post($url, $payload);
 
-        \Log::info("Sent bilingual message:", $response->json());
+        Log::info("Sent bilingual message:", $response->json());
         return $response->json();
     }
 
@@ -147,9 +144,9 @@ class DashboardController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
             ],
         ];
 
-        $response = \Http::withOptions(['verify' => false])->withToken($this->whatsappAccessToken)->post($url, $payload);
+        $response = Http::withOptions(['verify' => false])->withToken($this->whatsappAccessToken)->post($url, $payload);
 
-        \Log::info("Sent simple WhatsApp message:", $response->json());
+        Log::info("Sent simple WhatsApp message:", $response->json());
         return $response->json();
     }
 
@@ -178,7 +175,7 @@ class DashboardController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
             'message' => $response->json(),
         ], $response->status());
     } catch (\Exception $e) {
-        \Log::error("Refresh Token Error: " . $e->getMessage());
+        Log::error("Refresh Token Error: " . $e->getMessage());
         return response()->json([
             'status' => 'error',
             'message' => $e->getMessage(),
@@ -196,7 +193,6 @@ class DashboardController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
         $investigationComplaints = Complaint::where('status', 2)->count();
         $detectedRecoveredComplaints = Complaint::where('status', 3)->count();
 
-        // All complaints
        $complaints = Complaint::latest()->limit(10)->get();
         return view('vendor.voyager.dashboard.index', compact(
             'totalComplaints',

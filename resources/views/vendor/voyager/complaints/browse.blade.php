@@ -16,13 +16,22 @@
 @section('content')
     @include('voyager::menus.partial.notice')
 
-    <!-- import button start -->
-    @can('add', app($dataType->model_name))
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#import_modal">
-        <i class="voyager-upload"></i> Import CSV
-    </button>
-    @endcan
-    <!-- import button end -->
+@can('add', app($dataType->model_name))
+    <div class="d-inline-block">
+        <a href="{{ route('voyager.'.$dataType->slug.'.create') }}" class="btn btn-success">
+            <i class="voyager-plus"></i> Add Complaint
+        </a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#import_modal">
+            <i class="voyager-upload"></i> Import CSV
+        </button>
+        <a href="{{ asset('sample_csvs/complaints_sample.csv') }}" class="btn btn-info" download>
+            <i class="voyager-download"></i> Sample CSV
+        </a>
+        
+    </div>
+@endcan
+
+
 
     <div class="page-content container-fluid">
         @include('voyager::alerts')
@@ -30,6 +39,29 @@
             <div class="col-md-12">
                 <div class="panel panel-bordered">
                     <div class="panel-body">
+                        <div class="row mb-3">
+    <div class="col-md-3">
+        <input type="text" id="filter_fir_number" class="form-control" placeholder="Filter by FIR Number">
+    </div>
+    <div class="col-md-3">
+        <select id="filter_status" class="form-control">
+            <option value="">Filter by Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Investigation">Investigation</option>
+            <option value="Detected and Recovered">Detected and Recovered</option>
+            <option value="Detected not Recovered">Detected not Recovered</option>
+            <option value="Mobile Recovered">Mobile Recovered</option>
+            <option value="Closure">Closure</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input type="date" id="filter_date" class="form-control">
+    </div>
+    <div class="col-md-3">
+        <button id="reset_filters" class="btn btn-warning">Reset Filters</button>
+    </div>
+</div>
+
                         <table id="dataTable" class="table table-hover">
                             <thead>
                             <tr>
@@ -47,8 +79,23 @@
                                         @if($row->type == 'image')
                                             <img src="@if( strpos($data->{$row->field}, 'http://') === false && strpos($data->{$row->field}, 'https://') === false){{ Voyager::image( $data->{$row->field} ) }}@else{{ $data->{$row->field} }}@endif" style="width:100px">
                                         @else
-                                            {{ $data->{$row->field} }}
-                                        @endif
+    @if($row->field == 'status')
+        @php
+            $statusMap = [
+                1 => 'Pending',
+                2 => 'Investigation',
+                3 => 'Detected and Recovered',
+                4 => 'Detected not Recovered',
+                5 => 'Mobile Recovered',
+                6 => 'Closure',
+            ];
+        @endphp
+        {{ $statusMap[$data->{$row->field}] ?? $data->{$row->field} }}
+    @else
+        {{ $data->{$row->field} }}
+    @endif
+@endif
+
                                     </td>
                                     @endforeach
                                     <td class="no-sort no-click bread-actions">
@@ -124,16 +171,44 @@
 @stop
 
 @section('javascript')
-    <!-- DataTables -->
     <script>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
-                "order": [],
-                "language": {!! json_encode(__('voyager::datatable'), true) !!},
-                "columnDefs": [{"targets": -1, "searchable":  false, "orderable": false}]
-                @if(config('dashboard.data_tables.responsive')), responsive: true @endif
-            });
+    var table = $('#dataTable').DataTable({
+        "order": [],
+        "language": {!! json_encode(__('voyager::datatable'), true) !!},
+        "columnDefs": [{"targets": -1, "searchable":  false, "orderable": false}]
+        @if(config('dashboard.data_tables.responsive')), responsive: true @endif
+    });
+
+    $('#filter_fir_number').on('keyup', function () {
+        console.log(table);
+        table.column(1).search(this.value).draw();
+    });
+
+    $('#filter_status').on('change', function () {
+        var val = this.value;
+        if (val) {
+            table.column(7).search('^' + val + '$', true, false).draw();
+        } else {
+            table.column(7).search('').draw();
+        }
+    });
+
+
+    $('#filter_date').on('change', function () {
+        console.log(table.column(6));
+        table.column(8).search(this.value).draw();
+    });
+
+
+        $('#reset_filters').on('click', function () {
+            $('#filter_fir_number').val('');
+            $('#filter_status').val('');
+            $('#filter_date').val('');
+            table.search('').columns().search('').draw();
         });
+    });
+
 
         $('td').on('click', '.delete', function (e) {
             $('#delete_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.destroy', ['id' => '__menu']) }}'.replace('__menu', $(this).data('id'));
