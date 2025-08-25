@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::post('complaints/import', [ComplaintController::class, 'import'])
+        ->name('voyager.complaints.import');
 });
 // Route::group(['prefix' => 'admin', 'middleware' => ['web', 'admin.user']], function () {
 //     Route::get('/stations', 'App\Http\Controllers\StationsController@index')->name('voyager.index');
@@ -37,9 +39,3 @@ Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit'
 Route::post('/user/{id}/update', [UserController::class, 'update'])->name('user.update');
 
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-
-    Route::post('complaints/import', [ComplaintController::class, 'import'])
-        ->name('voyager.complaints.import');
-});

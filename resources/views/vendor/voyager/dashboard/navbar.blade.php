@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top navbar-top">
+<!-- <nav class="navbar navbar-default navbar-fixed-top navbar-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button class="hamburger btn-link">
@@ -75,4 +75,4 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav> -->

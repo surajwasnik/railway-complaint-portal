@@ -1,3 +1,11 @@
+
+:root {
+    --primary-color: #0029A3;
+    --secondary-color: #1C398E;
+    --text-color: #333333;
+}
+
+
 /*--------------------- Login Styling --------------------*/
 body.login.custom-style .login-sidebar {
     border: none;
@@ -43,6 +51,18 @@ body.custom-style .login-button {
     margin: 0px auto;
 }
 
+/*--------------------- Navbar Styling --------------------*/
+.voyager.main-style .dashboard-body .navbar {
+    background: unset;
+    box-shadow: unset;
+    border-bottom: 1px solid #3141581a;
+    padding-left: 0px;
+    margin: 0px 15px;
+}
+.voyager.main-style .navbar > .container-fluid {
+    border: unset;
+}
+
 /*--------------------- Dashboard Styling --------------------*/
 .voyager.main-style .app-footer {
     display: none;
@@ -54,7 +74,7 @@ body.custom-style .login-button {
     background-color: #1c388e;
 }
 .app-container.custom-style .side-body.padding-top {
-    padding: 60px 0px 15px 0px;
+    padding: 15px 0px 15px 0px;
     margin-right: 0px;
     margin-left: 285px;
 }
@@ -67,10 +87,18 @@ body.custom-style .login-button {
     height: 100%;
     padding: 0px 5px;
     padding-bottom: 50px;
-    height: calc(100vh - 75px);
+    /* height: calc(100vh - 75px); */
 }
 .voyager.main-style .page-title {
     padding-left: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    height: unset;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 20px;
+    letter-spacing: 0.35px;
+    color: #1C398E;
 }
 .voyager.main-style .app-container .side-body .container-fluid {
     padding-right: 15px;
@@ -84,13 +112,51 @@ body.custom-style .login-button {
     background-color: #1c388e;
     width: 300px;
 }
-
+.voyager.main-style .side-menu.sidebar-inverse .navbar li {
+    margin-bottom: 60px;
+    border-radius: 10px 0px 0px 10px;
+    background: #f4f6f821;
+    position: relative;
+    overflow: unset;
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li:hover {
+    background: #f4f6f821;
+}
+.voyager.main-style .side-menu .navbar li.active:hover {
+    background: #f4f6f8;
+}
 .voyager.main-style .side-menu .navbar li.active {
     background-color: #f4f6f8;
     position: relative;
     overflow: unset;
     border-radius: 10px 0px 0px 10px;
 }
+.voyager.main-style .side-menu.sidebar-inverse .navbar li:before {
+    content: "";
+    background-image: url(../images//corner.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0px;
+    top: -30px;
+    width: 30px;
+    height: 30px;
+    opacity: 0.1;
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li:after {
+    content: "";
+    background-image: url(../images//corner.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0px;
+    bottom: -30px;
+    width: 30px;
+    height: 30px;
+    transform: scaleY(-1); /* flips vertically */
+    opacity: 0.1;
+}
+
 .voyager.main-style .side-menu .navbar li.active:before {
     content: "";
     background-image: url(../images//corner.png);
@@ -101,6 +167,7 @@ body.custom-style .login-button {
     top: -30px;
     width: 30px;
     height: 30px;
+    opacity: 1;
 }
 .voyager.main-style .side-menu .navbar li.active:after {
     content: "";
@@ -113,13 +180,14 @@ body.custom-style .login-button {
     width: 30px;
     height: 30px;
     transform: scaleY(-1); /* flips vertically */
+    opacity: 1;
 }
+
 .voyager.main-style .side-menu.sidebar-inverse .navbar li.active > a {
     color: #1c398e;
 }
 .voyager.main-style .side-menu.sidebar-inverse .navbar li > a:hover {
-    background: #f4f6f821;
-    border-radius: 10px 0px 0px 10px;
+    background: unset;
 }
 .voyager.main-style .side-menu .navbar-nav {
     padding-left: 40px;
@@ -127,8 +195,15 @@ body.custom-style .login-button {
 .voyager.main-style .panel.bgimage {
     display: none;
 }
-
-
+.voyager.main-style .side-menu.sidebar-inverse .navbar li > a {
+    color: #f8fafccc;
+}
+.voyager.main-style .app-container.expanded .content-container .navbar-top {
+    padding-left: 300px;
+}
+.app-container .content-container .side-menu .navbar-nav li a .title {
+    display: inline-block;
+}
 
 /*--------------------- Table Styling --------------------*/
 .table-container {
@@ -165,6 +240,17 @@ body.custom-style .login-button {
     border: 1px solid #3141581a;
     box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.043);
     border-radius: 12px;
+}
+.modern-table tr td:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    overflow: hidden; /* zaroori hai taaki radius dikhe */
+}
+
+.modern-table tr td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    overflow: hidden;
 }
 
 .modern-table tbody tr:hover {
@@ -340,23 +426,37 @@ body.custom-style .login-button {
     color: #856404;
 }
 
-
-
-
 /*-------------------------- Navbar Styling --------------------------*/
-.logo-icon-container{
+.logo-icon-container {
     width: 100px;
 }
-.voyager.main-style .app-container .content-container .side-menu .navbar-header .navbar-brand .logo-icon-container{
+.voyager.main-style
+    .app-container
+    .content-container
+    .side-menu
+    .navbar-header
+    .navbar-brand
+    .logo-icon-container {
     height: unset;
     width: 100%;
 }
-.voyager.main-style .app-container .content-container .side-menu .navbar-header .navbar-brand {
+.voyager.main-style
+    .app-container
+    .content-container
+    .side-menu
+    .navbar-header
+    .navbar-brand {
     overflow: unset;
     height: 100%;
 }
-.voyager.main-style  .side-menu .navbar-header{
+.voyager.main-style .side-menu .navbar-header {
     background: unset;
     border-color: unset;
     padding: 30px 0px;
+}
+.app-container.custom-style.expanded .side-menu.sidebar-style {
+    width: 98px;
+}
+.app-container.custom-style.expanded .side-body.padding-top {
+    margin-left: 83px;
 }
