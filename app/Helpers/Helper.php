@@ -2,6 +2,9 @@
 
 namespace App\Helpers;
 
+use App\Models\Complaint;
+use App\Models\Station;
+
 class Helper
 {
 
@@ -60,5 +63,17 @@ class Helper
         }
 
        return [$english . "\n\n" . $marathi];
+    }
+
+    public static function getComplaints()
+    {
+        $user = auth()->user();
+        if ($user->role_id == 2) {
+            $stationIds = Station::where('user_id', $user->id)->pluck('id');
+            $complaints = Complaint::whereIn('station_id', $stationIds)->get();
+        } else {
+            $complaints = Complaint::all();
+        }
+        return $complaints;
     }
 }

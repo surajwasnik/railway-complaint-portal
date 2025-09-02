@@ -1,0 +1,4 @@
+id,station_id,fir_number,complainant_name,fir_description,user_description,police_station_name,officer_name,police_station_number,status,fir_date
+1,1,001,John Doe,Theft case description,User description here,Central Police Station,Inspector Sharma,9876543210,1,2025-08-01
+2,2,002,Jane Smith,Burglary case description,User complaint details,West Side Police Station,Officer Khan,9876543220,2,2025-08-15
+3,3,003,Ali Ahmad,Assault case description,Victim statement,North Police Station,Inspector Verma,9876543230,3,2025-08-20
