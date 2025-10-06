@@ -22,7 +22,7 @@
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset(path: 'css/custom-style.css') }}">
+    <link rel="stylesheet" href="{{ asset(path: 'css/custom-style.css') }}?v={{ time() }}">
 
     @yield('css')
     @if(__('voyager::generic.is_rtl') == 'true')

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use TCG\Voyager\Models\Role;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -22,6 +23,7 @@ class User extends \TCG\Voyager\Models\User
         'email',
         'password',
         'role_id',
+        'language',
     ];
 
     /**
@@ -44,55 +46,59 @@ class User extends \TCG\Voyager\Models\User
         'password' => 'hashed',
     ];
     public function station()
-{
-    return $this->hasOne(Station::class);
-}
-
-/**
- * User can have many complaints (if they are complainants)
- */
-public function complaints()
-{
-    return $this->hasMany(Complaint::class);
-}
-
-/**
- * Check if user is super admin
- */
-public function isSuperAdmin()
-{
-    return $this->role_id == 1; // Assuming role_id 1 is super admin
-}
-
-/**
- * Check if user is station admin
- */
-public function isStationAdmin()
-{
-    return $this->role_id == 2; // Assuming role_id 2 is station admin
-}
-
-/**
- * Get user's station (if station admin)
- */
-public function managedStation()
-{
-    return $this->hasOne(Station::class, 'user_id');
-}
-public function scopeStationAdmins($query)
-{
-    return $query->where('role_id', 2);
-}
-
-// Or if you're using Voyager's roles:
-// public function scopeStationAdmins($query)
-// {
-//     return $query->whereHas('role', function($q) {
-//         $q->where('name', 'station_admin');
-//     });
-// }
-public static function getStationAdmins()
-{
-    return self::where('role_id', 2)->pluck('name', 'id');
-}
+    {
+        return $this->hasOne(Station::class, 'user_id');
+    }
+    
+    /**
+     * User can have many complaints (if they are complainants)
+     */
+    public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+    
+    /**
+     * Check if user is super admin
+     */
+    public function isSuperAdmin()
+    {
+        return $this->role_id == 1; // Assuming role_id 1 is super admin
+    }
+    
+    /**
+     * Check if user is station admin
+     */
+    public function isStationAdmin()
+    {
+        return $this->role_id == 2; // Assuming role_id 2 is station admin
+    }
+    
+    /**
+     * Get user's station (if station admin)
+     */
+    public function managedStation()
+    {
+        return $this->hasOne(Station::class, 'user_id');
+    }
+    public function scopeStationAdmins($query)
+    {
+        return $query->where('role_id', 2);
+    }
+    
+    // Or if you're using Voyager's roles:
+    // public function scopeStationAdmins($query)
+    // {
+    //     return $query->whereHas('role', function($q) {
+    //         $q->where('name', 'station_admin');
+    //     });
+    // }
+    public static function getStationAdmins()
+    {
+        return self::where('role_id', 2)->pluck('name', 'id');
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }

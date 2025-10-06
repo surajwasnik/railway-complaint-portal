@@ -1,95 +1,380 @@
+:root {
+  --primary-color: #1c398e;
+  --secondary-color: #0029a3;
+  --table-text-color: #314158;
+  --light-bg: #f4f6f8;
+  --white: #fff;
+  --black: #000;
+  --danger: #a50036;
+  --success: #016630;
+  --pending: #e2b400;
+}
+
+.voyager.main-style .pagination .active span,
+.voyager.main-style .pagination .active > a,
+.voyager.main-style .pagination .active > a:focus,
+.voyager.main-style .pagination .active > a:hover,
+.voyager.main-style .pagination .active > span:focus,
+.voyager.main-style .pagination .active > span:hover {
+  background-color: var(--primary-color);
+}
+
+.row.content-container.full-height-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+.container-fluid.height-full {
+  width: 100%;
+}
+
+.voyager.main-style
+  .select2-container--default
+  .select2-selection--single
+  .select2-selection__arrow {
+  top: 13px;
+  right: 10px;
+}
+.voyager.main-style table.dataTable thead th.sorting:after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f0dc";
+  font-weight: 900;
+  margin-left: 6px;
+  color: #aaa;
+  font-size: 10px;
+  margin-top: 0px;
+  top: 33%;
+}
+
+.voyager.main-style table.dataTable thead th.sorting_asc:after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f0de"; /* fa-sort-up */
+  font-weight: 900;
+  margin-left: 6px;
+  color: #000;
+  font-size: 11px;
+  top: 25%;
+}
+
+.voyager.main-style table.dataTable thead th.sorting_desc:after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f0dd";
+  font-weight: 900;
+  margin-left: 6px;
+  color: #000;
+  font-size: 11px;
+  top: 25%;
+}
+
+.voyager.main-style .btn-pr,
+.voyager.main-style .btn.btn-success,
+.voyager.main-style .btn.btn-primary,
+.voyager.main-style .btn.btn-info,
+.voyager.main-style .btn.btn-warning {
+  color: var(--white);
+  background-color: var(--primary-color);
+  padding: 10px 25px;
+  text-decoration: none;
+  border-radius: 10px;
+  display: inline-block;
+  transition: 0.6s;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  border: none;
+  opacity: 1;
+}
+.voyager.main-style .btn-pr:hover {
+  background-color: #030067;
+}
+.voyager.main-style .modern-table .btn.btn-danger {
+  background-color: unset;
+  margin: 0px;
+  color: var(--danger);
+  padding: 0px;
+  font-size: 12px;
+}
+.voyager.main-style #dataTable td:last-child {
+    text-align: center;   /* center buttons */
+    white-space: nowrap;  /* prevent line break */
+    min-width: 160px;     /* optional: fix width */
+}
+.voyager.main-style .modern-table .btn.btn-primary {
+  background-color: unset;
+  margin: 0px;
+  color: var(--table-text-color);
+  padding: 0px;
+}
+.voyager.main-style .panel-body .select2-selection,
+.voyager.main-style form .form-group input,
+.voyager.main-style form .form-group select {
+  height: 50px;
+  padding: 10px 15px;
+  border: 1px solid #bcbcbc;
+  border-radius: 12px;
+  color: var(--black);
+}
+.voyager.main-style
+  .select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  color: var(--black);
+}
+.voyager.main-style form .form-group textarea {
+  padding: 10px 15px;
+  border: 1px solid #bcbcbc;
+  border-radius: 12px;
+}
+.voyager.main-style form .select2-selection__rendered {
+  padding-left: 0px;
+}
+
 /*--------------------- Login Styling --------------------*/
 body.login.custom-style .login-sidebar {
-    border: none;
+  border: none;
 }
 body.custom-style .hidden-xs.sec-hide {
-    display: none;
+  display: none;
 }
 body.custom-style .col-md-12.login-sidebar {
-    background-image: url(../images/texture.png);
-    background-size: unset;
-    background-repeat: repeat;
-    background-color: #1c388e;
+  background-image: url(../images/texture.png);
+  background-size: unset;
+  background-repeat: repeat;
+  background-color: #1c388e;
 }
 .texture-bg {
-    background-image: url(../images/login-bg.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    width: 100%;
-    background-position: center center;
+  background-image: url(../images/login-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  background-position: center center;
 }
 body.custom-style .login-container {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 500px;
-    background-color: white;
-    border: 1px solid #3141581a;
-    border-radius: 12px;
-    margin-top: 0px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  background-color: var(--white);
+  border: 1px solid #3141581a;
+  border-radius: 12px;
+  margin-top: 0px;
 }
 body.custom-style .login-button {
-    width: 100%;
-    border-radius: 10px;
-    background-color: #1c398ef0;
-    opacity: 1;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #1c398ef0;
+  opacity: 1;
 }
 .logo-sec {
-    text-align: center;
+  text-align: center;
 }
 .logo-img {
-    width: 140px;
-    margin: 0px auto;
+  width: 140px;
+  margin: 0px auto;
+}
+body.custom-style .login-container h3 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0.35px;
+  color: #0029a3;
+  margin-bottom: 40px;
+}
+body.custom-style.login .login-container p {
+  color: #314158;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-top: 3px;
+  margin-bottom: 8px;
+  padding-left: 2px;
+  text-transform: unset;
+}
+body.custom-style.login .login-sidebar {
+  margin-bottom: 0px;
+}
+body.custom-style.login .login-container form input.form-control {
+  height: 50px;
+}
+body.custom-style.login .form-group-default.focused {
+  border-color: var(--secondary-color);
+}
+body.custom-style.login .form-group-default {
+  border-radius: 10px;
+  border: 1px solid #bdbdbd;
+}
+.login-container:before {
+  content: "";
+  background-color: #f8fafc4d;
+  position: absolute;
+  left: 50%;
+  top: 52.5%;
+  transform: translate(-50%, -50%);
+  width: 92%;
+  height: 100%;
+  z-index: -1;
+  box-shadow: 0px 3px 5px 0px #0000000b;
+  border-radius: 12px;
+}
+body.login .login-button {
+  font-family: unset;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 20px;
+  text-transform: unset;
+  background-color: #1c398ef0;
+  transform: 0.6s;
+}
+
+body.login .login-button:hover {
+  background-color: #030067;
+}
+
+/*--------------------- Navbar Styling --------------------*/
+.voyager.main-style .dashboard-body .navbar {
+  box-shadow: unset;
+  border-bottom: 1px solid #3141581a;
+  padding-left: 0px;
+  margin: 0px 10px;
+  position: absolute;
+  width: calc(100% - 345px);
+  background: #f4f6f8;
+  top: 16px;
+  border-radius: 20px 20px 0px 0px;
+}
+.voyager.main-style
+  .app-container.custom-style.expanded
+  .dashboard-body
+  .navbar {
+  width: calc(100% - 150px);
+}
+.voyager.main-style .navbar > .container-fluid {
+  border: unset;
 }
 
 /*--------------------- Dashboard Styling --------------------*/
 .voyager.main-style .app-footer {
-    display: none;
+  display: none;
 }
 .app-container.custom-style {
-    background-image: url(../images/texture.png);
-    background-size: unset;
-    background-repeat: repeat;
-    background-color: #1c388e;
+  background-image: url(../images/texture.png);
+  background-size: unset;
+  background-repeat: repeat;
+  background-color: #1c388e;
+  padding-bottom: 0px;
 }
 .app-container.custom-style .side-body.padding-top {
-    padding: 60px 0px 15px 0px;
-    margin-right: 0px;
-    margin-left: 285px;
+  padding: 15px 0px 15px 0px;
+  flex: 1;
+  height: 100%;
+  margin-right: 0px;
+  margin-left: 285px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .app-container.custom-style .app-footer {
-    display: none;
+  display: none;
 }
 .app-container.custom-style .dashboard-body {
-    background-color: #f4f6f8;
-    border-radius: 32px;
-    height: 100%;
-    padding: 0px 5px;
-    padding-bottom: 50px;
+  background-color: var(--light-bg);
+  border-radius: 32px;
+  height: 100%;
+  padding: 0px 5px;
+  padding-bottom: 0px;
+  overflow-x: hidden;
+  padding-top: 60px;
 }
+
+.app-container.custom-style .dashboard-body::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.app-container.custom-style .dashboard-body::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+.app-container.custom-style .dashboard-body::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.app-container.custom-style .dashboard-body::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #9d9d9d;
+}
+
 .voyager.main-style .page-title {
-    padding-left: 20px;
+  padding-left: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  height: unset;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  color: var(--primary-color);
+  text-transform: capitalize;
 }
 .voyager.main-style .app-container .side-body .container-fluid {
-    padding-right: 15px;
+  padding-right: 15px;
 }
 
 /*--------------------- Sidebar Styling --------------------*/
 .app-container.custom-style .side-menu.sidebar-style {
-    background-image: url(../images/texture.png);
-    background-size: unset;
-    background-repeat: repeat;
-    background-color: #1c388e;
-    width: 300px;
+  background-image: url(../images/texture.png);
+  background-size: unset;
+  background-repeat: repeat;
+  background-color: #1c388e;
+  width: 300px;
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li {
+  margin-bottom: 30px;
+  border-radius: 10px 0px 0px 10px;
+  background: #f4f6f821;
+  position: relative;
+  overflow: unset;
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li:hover {
+  background: #f4f6f821;
+}
+.voyager.main-style .side-menu .navbar li.active:hover {
+  background: var(--light-bg);
+}
+.voyager.main-style .side-menu .navbar li.active {
+  background-color: var(--light-bg);
+  position: relative;
+  overflow: unset;
+  border-radius: 10px 0px 0px 10px;
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li:before {
+    content: "";
+    background-image: url(../images//corner.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0px;
+    top: -15px;
+    width: 15px;
+    height: 15px;
+    opacity: 0.13;
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li:after {
+    content: "";
+    background-image: url(../images//corner.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0px;
+    bottom: -15px;
+    width: 15px;
+    height: 15px;
+    transform: scaleY(-1);
+    opacity: 0.13;
 }
 
-.voyager.main-style .side-menu .navbar li.active {
-    background-color: #f4f6f8;
-    position: relative;
-    overflow: unset;
-    border-radius: 10px 0px 0px 10px;
-}
 .voyager.main-style .side-menu .navbar li.active:before {
     content: "";
     background-image: url(../images//corner.png);
@@ -97,9 +382,10 @@ body.custom-style .login-button {
     background-repeat: no-repeat;
     position: absolute;
     right: 0px;
-    top: -30px;
-    width: 30px;
-    height: 30px;
+    top: -15px;
+    width: 15px;
+    height: 15px;
+    opacity: 1;
 }
 .voyager.main-style .side-menu .navbar li.active:after {
     content: "";
@@ -108,257 +394,806 @@ body.custom-style .login-button {
     background-repeat: no-repeat;
     position: absolute;
     right: 0px;
-    bottom: -30px;
-    width: 30px;
-    height: 30px;
-    transform: scaleY(-1); /* flips vertically */
+    bottom: -15px;
+    width: 15px;
+    height: 15px;
+    transform: scaleY(-1);
+    opacity: 1;
 }
+
 .voyager.main-style .side-menu.sidebar-inverse .navbar li.active > a {
-    color: #1c398e;
+  color: var(--primary-color);
+  overflow: unset;
+}
+.voyager.main-style .side-menu.sidebar-inverse .navbar li.active > a:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #f4f6f821;
+  position: absolute;
+  z-index: 0;
+  top: 10px;
+  overflow: unset;
+  left: 0px;
+  border-bottom-left-radius: 12px;
 }
 .voyager.main-style .side-menu.sidebar-inverse .navbar li > a:hover {
-    background: #f4f6f821;
-    border-radius: 10px 0px 0px 10px;
+  background: unset;
 }
 .voyager.main-style .side-menu .navbar-nav {
-    padding-left: 40px;
+  padding-left: 40px;
 }
 .voyager.main-style .panel.bgimage {
-    display: none;
+  display: none;
 }
-
-
+.voyager.main-style .side-menu.sidebar-inverse .navbar li > a {
+  color: #f8fafccc;
+}
+.voyager.main-style .app-container.expanded .content-container .navbar-top {
+  padding-left: 300px;
+}
 
 /*--------------------- Table Styling --------------------*/
 .table-container {
-    overflow: hidden;
+  overflow: hidden;
+  overflow-x: auto;
+}
+.table-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.modern-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 15px; /* Changed from border-spacing: 0; */
-    font-size: 14px;
+.modern-table,
+.voyager.main-style .modern-table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 15px !important;
+  font-size: 14px;
 }
-
-.modern-table th {
-    padding: 16px 20px;
-    text-align: left;
-    font-weight: 600;
-    color: #495057;
-    border-bottom: 1px solid #e9ecef;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.voyager.main-style .table > thead > tr > th {
+  background: unset;
+  border: unset;
 }
-
-.modern-table td {
-    padding: 16px 20px;
-    vertical-align: middle;
-    color: #212529;
+.modern-table p {
+  margin: 0px;
+  color: #314158;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+}
+.modern-table th,
+.voyager.main-style table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--black);
+  border-bottom: 1px solid #e9ecef;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.voyager.main-style .table-heading-sec {
+  margin-bottom: 0px;
+}
+.voyager.main-style .dataTables_wrapper .row > [class*="col-sm-12"] {
+  padding: 0px !important;
+}
+.dataTables_wrapper .row > [class*="col-"] {
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+.modern-table td,
+.voyager.main-style table td {
+  padding: 16px 20px;
+  vertical-align: middle;
+  border-top: 1px solid #3141581a;
+  border-bottom: 1px solid #3141581a;
+  background: #f8fafc;
+  color: #314158;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
 }
 
 .modern-table tbody tr {
-    transition: background-color 0.2s;
-    background-color: #f8fafc;
-    border: 1px solid #3141581a;
-    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.043);
-    border-radius: 12px;
+  transition: background-color 0.2s;
+  border: 1px solid #3141581a;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.043);
+  border-radius: 12px;
+}
+.modern-table tr td:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  overflow: hidden;
+  border-left: 1px solid #3141581a;
+}
+
+.modern-table tr td:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  overflow: hidden;
+  border-right: 1px solid #3141581a;
 }
 
 .modern-table tbody tr:hover {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 .modern-table tbody tr:last-child td {
-    border-bottom: none;
+  border-bottom: none;
+}
+.voyager.main-style .dataTables_wrapper .dataTables_filter input {
+  max-width: 100%;
+  width: 300px;
+  background-color: white;
+  height: 42px;
+  border-radius: 12px;
+}
+select.form-control.input-sm {
+  margin: 0px 10px;
+  height: 42px;
+  border-radius: 12px;
 }
 
 /* Status badges */
 .status-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: capitalize;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.status-badge i {
+  font-size: 14px;
 }
 
 .status-badge::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    margin-right: 6px;
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 0px;
 }
 
 .status-active {
-    background-color: #d4edda;
-    color: #155724;
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .status-active::before {
-    background-color: #28a745;
+  background-color: #28a745;
 }
 
 .status-inactive {
-    background-color: #f8d7da;
-    color: #721c24;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .status-inactive::before {
-    background-color: #dc3545;
+  background-color: #dc3545;
 }
 
 .status-pending {
-    background-color: #fff3cd;
-    color: #856404;
+  background-color: #fff3cd;
+  color: #856404;
 }
 
 .status-pending::before {
-    background-color: #ffc107;
+  background-color: #ffc107;
 }
 
 /* Action buttons */
 .action-buttons {
-    display: flex;
-    gap: 8px;
-    align-items: center;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 /* Style Voyager action buttons */
 .action-buttons a,
 .action-buttons button,
 .action-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 12px;
-    border: 1px solid #dee2e6;
-    background: white;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.2s;
-    text-decoration: none;
-    font-size: 12px;
-    color: #495057;
-    margin: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border: 1px solid #dee2e6;
+  background: var(--white);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  text-decoration: none;
+  font-size: 12px;
+  color: #495057;
+  margin: 0;
 }
 
 .action-buttons a:hover,
 .action-buttons button:hover,
 .action-btn:hover {
-    background-color: #f8f9fa;
-    border-color: #adb5bd;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Style specific Voyager buttons by class or icon */
 .action-buttons a[title*="View"],
 .action-buttons a[href*="show"],
 .btn-sm.btn-warning {
-    color: #007bff;
-    border-color: #007bff;
+  color: #007bff;
+  border-color: #007bff;
 }
 
 .action-buttons a[title*="Edit"],
 .action-buttons a[href*="edit"],
 .btn-sm.btn-primary {
-    color: #28a745;
-    border-color: #28a745;
+  color: #28a745;
+  border-color: #28a745;
 }
 
 .action-buttons a[title*="Delete"],
 .action-buttons button[title*="Delete"],
 .btn-sm.btn-danger {
-    color: #dc3545;
-    border-color: #dc3545;
+  color: #dc3545;
+  border-color: #dc3545;
 }
 
 .action-buttons a[title*="View"]:hover,
 .btn-sm.btn-warning:hover {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: var(--white);
 }
 
 .action-buttons a[title*="Edit"]:hover,
 .btn-sm.btn-primary:hover {
-    background-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  color: var(--white);
 }
 
 .action-buttons a[title*="Delete"]:hover,
 .btn-sm.btn-danger:hover {
-    background-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  color: var(--white);
 }
 
 /* Override Voyager default button styles */
 .action-buttons .btn {
-    margin: 0 !important;
-    font-size: 12px !important;
-    padding: 6px 12px !important;
+  margin: 0 !important;
+  font-size: 12px !important;
+  padding: 6px 12px !important;
 }
 
 .empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: #6c757d;
-    font-style: italic;
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+  font-style: italic;
 }
 
 /* Role badge styling */
 .role-badge {
-    background-color: #e9ecef;
-    color: #495057;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
+  background-color: #e9ecef;
+  color: #495057;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .role-admin {
-    background-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  color: var(--white);
 }
 
 .role-user {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: var(--white);
 }
 
 .role-moderator {
-    background-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  color: var(--white);
 }
 
 .role-editor {
-    background-color: #ffc107;
-    color: #856404;
+  background-color: #ffc107;
+  color: #856404;
 }
-
-
-
 
 /*-------------------------- Navbar Styling --------------------------*/
-.logo-icon-container{
-    width: 100px;
+.logo-icon-container {
+  width: 100px;
 }
-.voyager.main-style .app-container .content-container .side-menu .navbar-header .navbar-brand .logo-icon-container{
-    height: unset;
-    width: 100%;
+.voyager.main-style
+  .app-container
+  .content-container
+  .side-menu
+  .navbar-header
+  .navbar-brand
+  .logo-icon-container {
+  height: unset;
+  width: 100%;
 }
-.voyager.main-style .app-container .content-container .side-menu .navbar-header .navbar-brand {
-    overflow: unset;
-    height: 100%;
+.voyager.main-style
+  .app-container
+  .content-container
+  .side-menu
+  .navbar-header
+  .navbar-brand {
+  overflow: unset;
+  height: 100%;
 }
-.voyager.main-style  .side-menu .navbar-header{
-    background: unset;
-    border-color: unset;
-    padding: 30px 0px;
+.voyager.main-style .side-menu .navbar-header {
+  background: unset;
+  border-color: unset;
+  padding: 30px 0px;
+}
+.app-container.custom-style.expanded .side-menu.sidebar-style {
+  width: 98px;
+}
+.app-container.custom-style.expanded .side-body.padding-top {
+  margin-left: 83px;
 }
 .app-container .content-container .side-menu .navbar-nav li a .title {
+  display: inline-block;
+}
+
+/*---------------------- Dashboard Styling ----------------------*/
+
+.dashboard-title {
+  display: none;
+}
+.voyager.main-style .panel {
+  background-color: unset;
+  box-shadow: unset;
+}
+.voyager.main-style .panel-body {
+  padding: 0px;
+}
+.voyager.main-style .dashboard-cards {
+  margin-top: 30px;
+}
+.voyager.main-style .dashboard-cards .cards-row {
+  margin-bottom: 30px;
+}
+.dashboard-cards .card {
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.043);
+  backdrop-filter: blur(12px);
+  border: 1px solid #3141581a;
+  overflow: unset;
+  border-radius: 12px;
+}
+.dashboard-cards .card .card-body {
+  padding: 25px 30px;
+}
+.dashboard-cards .card:before {
+  content: "";
+  background-color: #f8fafc4d;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 100%;
+  z-index: -1;
+  border: 1px solid #3141581a;
+  box-shadow: 0px 3px 5px 0px #0000000b;
+  border-radius: 12px;
+}
+.dashboard-cards .card .card-body {
+  background-color: var(--white);
+  border-radius: 12px;
+}
+.dashboard-cards .card .card-body h4 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  color: var(--secondary-color);
+  margin-bottom: 18px;
+}
+.dashboard-cards .card .card-body p {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  color: #6b6b6b;
+}
+.table-heading-sec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-right: 16px;
+}
+.table-heading-sec h3 {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  color: var(--secondary-color);
+}
+.table-heading-right-sec {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.voyager.main-style form {
+  border: 1px solid #3141581a;
+  box-shadow: 0px 3px 5px 0px #0000000b;
+  background-color: #f8fafc4d;
+  border-radius: 12px;
+  padding: 20px 8px;
+}
+.voyager.main-style form .panel-body {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #3141581a;
+  box-shadow: 0px 3px 5px 0px #0000000b;
+  padding: 25px 20px;
+  margin-bottom: 20px;
+}
+.filter-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.filter-search-bar input,
+.filter-search-bar select {
+  border: 1px solid #3141581a;
+  background-color: #f8fafc;
+  border-radius: 10px;
+  padding: 10px 20px;
+  height: 42px;
+}
+
+/*----------------- Modal Styling -----------------*/
+.voyager.main-style .modal .modal-header {
+  background-color: #f4f6f8;
+  padding: 40px 20px;
+}
+.voyager.main-style .close {
+  opacity: 1;
+}
+.voyager.main-style .modal-header * {
+  color: var(--black);
+}
+.voyager.main-style .modal .modal-dialog .modal-content {
+  border-radius: 20px;
+  overflow: hidden;
+}
+.voyager.main-style .modal form {
+  border: unset;
+  box-shadow: unset;
+  background-color: unset;
+  border-radius: unset;
+  padding: unset;
+}
+.voyager.main-style .modal form .btn.btn-danger {
+  background-color: var(--danger);
+  padding: 10px 25px;
+  text-decoration: none;
+  border-radius: 10px;
+  display: inline-block;
+  transition: 0.6s;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  border: none;
+  opacity: 1;
+}
+.voyager.main-style .modal-body{
+    font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  border: none;
+  opacity: 1;
+}
+.voyager.main-style .modal-title i {
+  display: none;
+}
+.voyager.main-style .modal i.voyager-trash {
+  padding-top: 5px;
+}
+
+/* Form Styling */
+/*.voyager.main-style .page-content .form-group.col-md-6:nth-last-child(-n + 4) {*/
+/*  width: 100% !important;*/
+/*}*/
+.voyager.main-style .page-content .form-group label {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  color: var(--black);
+  margin-bottom: 10px;
+}
+.voyager.main-style .page-content .form-group {
+  margin-bottom: 20px;
+}
+.voyager.main-style .btn.btn-danger {
+  background-color: var(--danger);
+  padding: 10px 25px;
+  text-decoration: none;
+  border-radius: 10px;
+  display: inline-block;
+  transition: 0.6s;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  border: none;
+  opacity: 1;
+}
+
+.voyager.main-style #station-fields .form-group {
+  width: 100%;
+  /*padding: 0px 15px;*/
+}
+.voyager.main-style #user-fields {
+  padding: 0px 15px;
+}
+.voyager.main-style .page-content.edit-add form .panel-body h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1c398e;
+  padding: 0px 15px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.voyager.main-style .page-content.edit-add .btn.btn-primary,
+.voyager.main-style .page-content.edit-add .btn.btn-success {
+  margin-left: 15px;
+}
+.voyager.main-style .btn.btn-primary i,
+.voyager.main-style .btn.btn-info i {
+  position: relative;
+  top: 2px;
+  left: -2px;
+}
+
+.voyager.main-style .panel-title code {
+  color: var(--danger);
+}
+.voyager .settings .nav-tabs .active a {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--secondary-color) !important;
+}
+.voyager.main-style input[type="file"] {
+  border: 1px solid #bcbcbc;
+  border-radius: 12px;
+  color: #000;
+  font-size: 14px;
+  padding: 20px;
+  height: 61px;
+}
+.voyager.main-style .modal .modal-dialog .modal-footer .btn.btn-default {
+  margin-right: 10px;
+  padding: 10px 25px;
+  text-decoration: none;
+  border-radius: 10px;
+  display: inline-block;
+  transition: 0.6s;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+  border: none;
+  opacity: 1;
+}
+.voyager.main-style .profile .dropdown-toggle img {
+  margin-right: 8px;
+}
+.voyager.main-style .btn-group-sm > .btn i,
+.voyager.main-style .btn-sm i {
+  top: 1px;
+  right: 3px;
+  font-size: 14px;
+}
+.voyager.main-style a.pull-right.edit {
+  margin-top: -1px !important;
+}
+
+.status-badge {
+  padding: 0px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+  min-width: unset;
+}
+
+.status-pending {
+  color: #d97706;
+}
+
+.status-under-investigation {
+  color: #1d4ed8;
+}
+
+.status-detected-recovered {
+  color: #059669;
+}
+
+.status-detected-not-recovered {
+  color: #dc2626;
+}
+
+.status-mobile-recovered {
+  color: #6366f1;
+}
+
+.status-not-detected-closed {
+  color: #6b7280;
+}
+.voyager.main-style .pagination .paginate_button a {
     display: inline-block;
+  border: 1px solid #cfcfcf;
+  border-radius: 12px;
+  color: #000;
+  margin: 0px 5px;
+  transition: all 0.6s ease;
+}
+.voyager.main-style .pagination .paginate_button a:hover{
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-4px);
+}
+.voyager.main-style .paginate_button.active a {
+  color: #fff;
+}
+.voyager.main-style .dataTables_info {
+  color: #000;
+}
+
+.voyager.main-style .settings .panel-title {
+  font-size: 14px;
+  color: var(--black);
+  font-weight: 700;
+}
+.voyager.main-style .tab-content > div {
+  padding: 10px 20px;
+}
+.voyager.main-style form .tab-pane input.form-control {
+  border-color: #76838f;
+  height: 50px;
+  border-radius: 12px;
+}
+.voyager.main-style .form-control.focus,
+.voyager.main-style .form-control:focus {
+  border-color: var(--secondary-color);
+}
+.voyager.main-style .page-content.settings button {
+  margin-top: 20px;
+  margin-left: 15px;
+}
+.voyager.main-style .page-content.settings form input,
+.voyager.main-style .page-content.settings form select {
+  border-color: #bcbcbc;
+  height: 50px;
+  border-radius: 12px;
+  padding: 13px 20px;
+  font-weight: 500;
+  color: var(--black);
+}
+.voyager.main-style .page-content.settings form label {
+  font-size: 14px;
+  color: var(--black);
+  font-weight: 500 !important;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+.voyager.main-style .settings .select2 {
+  margin-left: 15px;
+}
+.voyager.main-style .settings .col-md-6 .select2 {
+  margin: 0px;
+}
+.voyager.main-style .settings form .panel-body {
+  padding: 25px 35px 25px 20px;
+}
+.page-content.settings form h3.new-setting {
+  text-align: left;
+  font-weight: 700;
+  margin-left: 15px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background-color: unset;
+  background: unset;
+  border: unsett;
+  color: unset;
+  box-shadow: unset;
+}
+.voyager.main-style .dashboard-cards .btn.btn-primary i {
+  top: 1px;
+}
+.voyager.main-style .modern-table .btn.btn-primary {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.voyager.main-style #dataTable_wrapper .col-sm-6 {
+  padding: 0px !important;
+}
+.voyager.main-style.users .dataTables_wrapper .row > [class*="col-"] {
+  margin-top: 0px;
+}
+.voyager.main-style .btn.btn-info.import-btn {
+  background-color: unset;
+  color: #7195ff;
+  text-decoration: underline;
+  padding: 0px;
+}
+.voyager.main-style .btn.btn-info.import-btn i {
+  color: #7195ff;
+}
+.voyager.main-style .settings #toggle_options {
+  float: left;
+}
+.voyager .navbar.navbar-default .navbar-nav > li.profile:hover > a {
+  color: var(--secondary-color);
+}
+.voyager.main-style .panel-footer {
+  clear: both;
+}
+.voyager.main-style.complaints .panel-footer button {
+  margin: 0px !important;
+}
+.page-content.settings form .tab-content {
+  padding-bottom: 30px;
+  border-radius: 12px;
+}
+.voyager.main-style .new-setting-panel {
+  padding-bottom: 30px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid transparent;
+}
+.voyager.main-style .select2-container--default .select2-results__option--highlighted[aria-selected]{
+    background-color: var(--primary-color);
+}
+.voyager.main-style .navbar .navbar-nav>li.open>a, .voyager .navbar.navbar-default .navbar-nav>li.open>a{
+    color: var(--primary-color);
+}
+.navbar.navbar-default .dropdown.profile form .btn.btn-danger i{
+    position: relative;
+    top: 2px;
+    left: -4px;
+}
+.voyager.main-style .lang-sec {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.voyager.main-style .lang-sec .lang-sec-block .form-group{
+    width: 100% !important;
+}
+.voyager.main-style .lang-sec .lang-sec-block{
+    width: 50%;
+}
+.voyager.main-style .page-content.edit-add .tab-content > div{
+    padding: 0px;
+}
+.app-container.custom-style.expanded .admin-title{
+    font-size: 8px;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+    background-color: var(--primary-color);
+    border: none;
+}
+.voyager .nav-tabs>li.active>a:hover {
+    background-color: var(--secondary-color);
 }

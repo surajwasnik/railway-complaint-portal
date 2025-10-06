@@ -22,7 +22,9 @@
 
     <!-- App CSS -->
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset(path: 'css/custom-style.css') }}">
+    <link rel="stylesheet" href="{{ asset(path: 'css/custom-style.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset(path: 'css/responsive.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @yield('css')
     @if(__('voyager::generic.is_rtl') == 'true')
@@ -33,12 +35,18 @@
     <!-- Few Dynamic Styles -->
     <style type="text/css">
         .voyager .side-menu .navbar-header {
-            background: {{ config('voyager.primary_color', '#22A7F0') }};
-            border-color: {{ config('voyager.primary_color', '#22A7F0') }};
+            background:
+                {{ config('voyager.primary_color', '#22A7F0') }}
+            ;
+            border-color:
+                {{ config('voyager.primary_color', '#22A7F0') }}
+            ;
         }
 
         .widget .btn-primary {
-            border-color: {{ config('voyager.primary_color', '#22A7F0') }};
+            border-color:
+                {{ config('voyager.primary_color', '#22A7F0') }}
+            ;
         }
 
         .widget .btn-primary:focus,
@@ -46,11 +54,15 @@
         .widget .btn-primary:active,
         .widget .btn-primary.active,
         .widget .btn-primary:active:focus {
-            background: {{ config('voyager.primary_color', '#22A7F0') }};
+            background:
+                {{ config('voyager.primary_color', '#22A7F0') }}
+            ;
         }
 
         .voyager .breadcrumb a {
-            color: {{ config('voyager.primary_color', '#22A7F0') }};
+            color:
+                {{ config('voyager.primary_color', '#22A7F0') }}
+            ;
         }
     </style>
 
@@ -83,7 +95,7 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
 
     <div class="app-container custom-style">
         <div class="fadetoblack visible-xs"></div>
-        <div class="row content-container">
+        <div class="row content-container full-height-container">
             @include('voyager::dashboard.navbar')
             @include('voyager::dashboard.sidebar')
             <script>
@@ -116,6 +128,94 @@ if (\Illuminate\Support\Str::startsWith(Auth::user()->avatar, 'http://') || \Ill
             <div class="container-fluid height-full">
                 <div class="side-body padding-top">
                     <div class="dashboard-body">
+                        <nav class="navbar navbar-default ">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button class="hamburger btn-link">
+                                        <span class="hamburger-inner"></span>
+                                    </button>
+                                    <!-- @section('breadcrumbs')
+                                    <ol class="breadcrumb hidden-xs">
+                                        @php
+                                            $segments = array_filter(explode('/', str_replace(route('voyager.dashboard'), '', Request::url())));
+                                            $url = route('voyager.dashboard');
+                                        @endphp
+                                        @if(count($segments) == 0)
+                                            <li class="active"><i class="voyager-boat"></i>
+                                                {{ __('voyager::generic.dashboard') }}</li>
+                                        @else
+                                            <li class="active">
+                                                <a href="{{ route('voyager.dashboard')}}"><i class="voyager-boat"></i>
+                                                    {{ __('voyager::generic.dashboard') }}</a>
+                                            </li>
+                                            @foreach ($segments as $segment)
+                                                @php
+                                                    $url .= '/' . $segment;
+                                                @endphp
+                                                @if ($loop->last)
+                                                    <li>{{ ucfirst(urldecode($segment)) }}</li>
+                                                @else
+                                                    <li>
+                                                        <a href="{{ $url }}">{{ ucfirst(urldecode($segment)) }}</a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </ol>
+                                    @show -->
+                                </div>
+                                <ul
+                                    class="nav navbar-nav @if (__('voyager::generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
+                                    <li class="dropdown profile">
+                                        <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown"
+                                            role="button" aria-expanded="false">
+                                            <!-- <img src="{{ $user_avatar }}" class="profile-img">  -->
+                                            <img src="{{ asset('images/profile-pic.png') }}" class="profile-img" alt="My Image">
+                                            {{ Auth::user()->name }}
+                                            <span class="caret"></span></a>
+                                        <ul class="dropdown-menu dropdown-menu-animated">
+                                            <li class="profile-img">
+                                                <!-- <img src="{{ $user_avatar }}" class="profile-img"> -->
+                                                <img src="{{ asset('images/profile-pic.png') }}" class="profile-img"
+                                                    alt="My Image">
+                                                <div class="profile-body">
+                                                    <h5>{{ Auth::user()->name }}</h5>
+                                                    <h6>{{ Auth::user()->email }}</h6>
+                                                </div>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <?php $nav_items = config('voyager.dashboard.navbar_items'); ?>
+                                            @if(is_array($nav_items) && !empty($nav_items))
+                                                @foreach($nav_items as $name => $item)
+                                                    <li {!! isset($item['classes']) && !empty($item['classes']) ? 'class="' . $item['classes'] . '"' : '' !!}>
+                                                        @if(isset($item['route']) && $item['route'] == 'voyager.logout')
+                                                            <form action="{{ route('voyager.logout') }}" method="POST">
+                                                                {{ csrf_field() }}
+                                                                <button type="submit" class="btn btn-danger btn-block">
+                                                                    @if(isset($item['icon_class']) && !empty($item['icon_class']))
+                                                                        <i class="{!! $item['icon_class'] !!}"></i>
+                                                                    @endif
+                                                                    {{__($name)}}
+                                                                </button>
+                                                            </form>
+                                                        @else
+                                                            <a href="{{ isset($item['route']) && Route::has($item['route']) ? route($item['route']) : (isset($item['route']) ? $item['route'] : '#') }}"
+                                                                {!! isset($item['target_blank']) && $item['target_blank'] ? 'target="_blank"' : '' !!}>
+                                                                @if(isset($item['icon_class']) && !empty($item['icon_class']))
+                                                                    <i class="{!! $item['icon_class'] !!}"></i>
+                                                                @endif
+                                                                {{__($name)}}
+                                                            </a>
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+
                         @yield('page_header')
                         <div id="voyager-notifications"></div>
                         @yield('content')

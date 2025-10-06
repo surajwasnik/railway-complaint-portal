@@ -1,0 +1,148 @@
+@extends('voyager::master')
+@section('page_title', 'Railway Complaint Portal | ' . ($user ? 'Police station user edit' : 'Police station user add'))
+
+@section('content')
+<div class="page-content">
+    <h1 class="page-title">{{$user ? __('Police station user edit') :  __('Police station user add') }}</h1>
+    <div class="page-content edit-add container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-bordered">
+                    <form method="POST"
+                          action="{{ $user ? route('user.update', $user->id) : route('user.store') }}">
+                        @csrf
+
+                        <!--<div class="form-group">-->
+                        <!--    <label>Role</label>-->
+                        <!--    <select id="role_id" name="role_id" class="form-control" required>-->
+                        <!--        <option value="">-- Select Role --</option>-->
+                        <!--        @foreach($roles as $role)-->
+                        <!--            <option value="{{ $role->id }}"-->
+                        <!--                {{ $user && $user->role_id == $role->id ? 'selected' : '' }}>-->
+                        <!--                {{ $role->name }}-->
+                        <!--            </option>-->
+                        <!--        @endforeach-->
+                        <!--    </select>-->
+                        <!--</div>-->
+                        <div class="panel-body">
+                            <input type="hidden" id="role_id" name="role_id" value="2">
+                            @if (count($errors) > 0)
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+
+                            {{-- User Fields --}}
+                            
+
+                            {{-- Station Fields --}}
+                            
+                            <div id="station-fields">
+                                <div class="form-group">
+                                    <label>Police Station Name</label>
+                                    <input type="text" name="station_name"
+                                           value="{{ $user->station->station_name ?? old('station_name') }}"
+                                           class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Head Officer Name</label>
+                                    <input type="text" name="station_head_name"
+                                           value="{{ $user->station->station_head_name ?? old('station_head_name') }}"
+                                           class="form-control" id="source">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Mobile Number</label>
+                                    <input type="text" name="station_head_phone"
+                                           value="{{ $user->station->station_head_phone ?? old('station_head_phone') }}"
+                                           class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select name="status" class="form-control">
+                                        <option value="active" {{ isset($user) && optional($user->station)->status == 'active' ? 'selected' : '' }}>Active</option>
+                                        <option value="inactive" {{ isset($user) && optional($user->station)->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                        <option value="suspended" {{ isset($user) && optional($user->station)->status == 'suspended' ? 'selected' : '' }}>Suspended</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <h4>{{ __('User Credentials')}}</h4>
+                            <div id="user-fields">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="email"
+                                           value="{{ $user->email ?? old('email') }}"
+                                           class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    
+                                    <input type="hidden" name="name"
+                                           value="{{ $user->name ?? old('name') }}"
+                                           class="form-control" id="target" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Password {{ $user ? '(leave blank to keep old)' : '' }}</label>
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" name="password_confirmation" class="form-control">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-{{ $user ? 'success' : 'primary' }}">
+                                {{ $user ? 'Update User' : 'Create User' }}
+                            </button> 
+                        </div> 
+                    </form>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@endsection
+
+{{-- ✅ Add JS directly inside this blade --}}
+@section('javascript')
+<script>
+    function toggleFields() {
+        let dropdown = document.getElementById("role_id");
+        let roleName = dropdown.options[dropdown.selectedIndex]?.text.toLowerCase();
+
+        // Always show user fields
+        document.getElementById("user-fields").style.display = "block";
+
+        if (roleName === "super_admin") {
+            document.getElementById("station-fields").style.display = "none";
+        } else if (roleName === "station_admin") {
+            document.getElementById("station-fields").style.display = "block";
+        } else {
+            document.getElementById("station-fields").style.display = "block";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        toggleFields(); // run on load
+        document.getElementById("role_id").addEventListener("change", toggleFields);
+    });
+    
+     // Get references to both input fields
+    const sourceInput = document.getElementById("source");
+    const targetInput = document.getElementById("target");
+
+    // Add event listener to sync characters
+    sourceInput.addEventListener("input", function() {
+      targetInput.value = sourceInput.value;
+    });
+    
+</script>
+@endsection
