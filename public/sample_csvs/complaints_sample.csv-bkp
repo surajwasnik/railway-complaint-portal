@@ -1,0 +1,4 @@
+fir_number,fir_date,name,number,io_officer,io_officer_number,status
+001,2025-08-01,John Doe,9876543210,Vijay Sharma,9876543210,Under Investigation
+002,2025-08-15,Jane Smith,1234567890,Sachin Lokahnde,9876543220,Under Investigation
+003,2025-08-20,Ali Ahmad,9988776655,Vinit Waghmare,9876543230,Detected & Property Recovered

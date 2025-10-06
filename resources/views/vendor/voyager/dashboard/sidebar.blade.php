@@ -4,15 +4,16 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ route('voyager.dashboard') }}">
                     <div class="logo-icon-container">
-                        <!-- <?php $admin_logo_img = Voyager::setting('admin.icon_image', ''); ?>
+                        <?php $admin_logo_img = Voyager::setting('admin.icon_image', ''); ?>
                         @if($admin_logo_img == '')
-                            <img src="{{ voyager_asset('images/logo-icon-light.png') }}" alt="Logo Icon">
+                            <!-- <img src="{{ voyager_asset('images/logo-icon-light.png') }}" alt="Logo Icon"> -->
+                            <img src="{{ asset('images/logo.png') }}" alt="Logo">
                         @else
                             <img src="{{ Voyager::image($admin_logo_img) }}" alt="Logo Icon">
-                        @endif -->
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo">
+                        @endif
+                        <h4 class="admin-title">{{Voyager::setting('admin.title', 'VOYAGER')}}</h4>
+
                     </div>
-                    <!-- <div class="title">{{Voyager::setting('admin.title', 'VOYAGER')}}</div> -->
                 </a>
             </div><!-- .navbar-header -->
 

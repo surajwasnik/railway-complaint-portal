@@ -24,7 +24,7 @@ class Helper
 
             case '1':
                 $english = "Dear {$complainantName},\nYour FIR No. {$firNumber}, dated {$date}, registered at {$policeStation} is under investigation. You will be updated on further progress.\n- {$officerName}";
-                
+
                 $marathi = "आदरणीय {$complainantName},\n आपली FIR क्रमांक {$firNumber}, दिनांक {$date}, पोलीस ठाणे {$policeStation} येथे नोंद असून चौकशी सुरू आहे. पुढील प्रगतीची माहिती आपणास कळविण्यात येईल.\n - {$officerName}";
 
             case '2':
@@ -53,7 +53,7 @@ class Helper
 
             case '6':
                 $english = "Dear {$complainantName},\nYour FIR No. {$firNumber}, dated {$date}, at {$policeStation} could not be traced even after investigation. As per legal procedure, a Closure Report has been filed.\nFor more information, please contact {$policeStation} / {$officerName}.\n- {$officerName}";
-                
+
                 $marathi = "आदरणीय {$complainantName},\nआपली FIR क्रमांक {$firNumber}, दिनांक {$date}, पोलीस ठाणे {$policeStation} येथे नोंद असून चौकशीनंतरही प्रकरणाचा शोध लागू शकला नाही. कायदेशीर प्रक्रियेप्रमाणे बंद अहवाल (Closure Report) दाखल करण्यात आलेला आहे.\nअधिक माहितीसाठी कृपया {$policeStation} / {$officerName} यांच्याशी संपर्क साधा.\n- {$officerName}";
                 break;
 
@@ -65,15 +65,41 @@ class Helper
        return [$english . "\n\n" . $marathi];
     }
 
-    public static function getComplaints()
+    public static function getComplaints($limit = null)
     {
         $user = auth()->user();
         if ($user->role_id == 2) {
             $stationIds = Station::where('user_id', $user->id)->pluck('id');
-            $complaints = Complaint::whereIn('station_id', $stationIds)->get();
+            if($limit){
+                $complaints = Complaint::latest()->whereIn('station_id', $stationIds)->take($limit)->get();
+            }else{
+                $complaints = Complaint::whereIn('station_id', $stationIds)->get();
+            }
         } else {
-            $complaints = Complaint::all();
+            if($limit){
+                $complaints = Complaint::latest()->take($limit)->get();
+            }else{
+                $complaints = Complaint::all();
+            }
         }
         return $complaints;
+    }
+    public static function getComplaintsStatusCount($status = null)
+    {
+        $user = auth()->user();
+
+        if ($user->role_id == 2) {
+            $stationIds = Station::where('user_id', $user->id)->pluck('id');
+            $query = Complaint::whereIn('station_id', $stationIds);
+        } else {
+            $query = Complaint::query();
+        }
+
+        // Apply status filter only if $status is not null
+        if (!is_null($status) && $status !== '') {
+            $query->where('status', $status);
+        }
+
+        return $query->count();
     }
 }

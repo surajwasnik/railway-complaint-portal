@@ -6,12 +6,12 @@
     <meta name="robots" content="none" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="admin login">
-    <title>@yield('title', 'Admin - '.Voyager::setting("admin.title"))</title>
+    <title>Railway Complaint Portal | Login</title>
     <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset( 'css/custom-style.css') }}">
+    <link rel="stylesheet" href="{{ asset(path: 'css/custom-style.css') }}?v={{ time() }}">
     @if (__('voyager::generic.is_rtl') == 'true')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css">
-        <link rel="stylesheet" href="{{ voyager_asset('css/rtl.css') }}">
+        <link rel="stylesheet" href="{{ asset(path: 'css/custom-style.css') }}?v={{ time() }}">
 
     @endif
     <style>

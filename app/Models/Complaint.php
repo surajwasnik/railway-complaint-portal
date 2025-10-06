@@ -28,13 +28,15 @@ class Complaint extends Model
         'station_id',
         'fir_number',
         'complainant_name',
+        'complainant_number',
         'fir_description',
         'user_description',
         'police_station_name',
         'officer_name',
         'police_station_number',
         'status',
-        'fir_date'
+        'fir_date',
+        'language'
     ];
 
     protected $casts = [
@@ -56,9 +58,10 @@ class Complaint extends Model
     /**
      * Complaint belongs to a Station
      */
+
     public function station()
     {
-        return $this->belongsTo(Station::class);
+        return $this->belongsTo(\App\Models\Station::class);
     }
 
     /**

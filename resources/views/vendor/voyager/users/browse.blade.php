@@ -1,124 +1,125 @@
 @extends('voyager::master')
 
-@section('content')
 
 @section('page_header')
-<div class="container-fluid sp-head sp-user-head sp-user-browse-head">
-    <div class="sp-row sp-top-outer">
-        <div class="sp-col6">
-            <h2 class="page-title">{{ $dataType->getTranslatedAttribute('display_name_plural') }}</h2>
-        </div>
-        <div class="sp-col6 sp-act icon-btns customer_btn_add">
-            @can('export', app($dataType->model_name))
-                <form action="{{ route('users.export') }}" method="POST">
-                    {{ method_field('POST') }}
-                    {{ csrf_field() }}
-                    <input type="hidden" name="user_id" id="export_ids" value="">
-                    <button type="submit" class="btn-pr" id="export"><img
-                            src="{{url('assets/images/export.svg')}}">{{ __('Export') }}</button>
-                </form>
-            @endcan
-            @can('add', app($dataType->model_name))
-                <a href="{{ route('voyager.' . $dataType->slug . '.create') }}" class="btn-pr">
-                    <img src="{{url('assets/images/plus.svg')}}">{{ __('voyager::generic.add_new') }}
-                </a>
-            @endcan
-        </div>
-        @include('voyager::alerts')
-        <div class="table-container">
-            <table class="modern-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Created At</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($users as $data)
-                        <tr>
-                            <td>{{ $data->id }}</td>
-                            <td>{{ $data->name }}</td>
-                            <td>{{ $data->email }}</td>
-                            <td>
-                                @if($data->role)
-                                    <span class="role-badge role-{{ strtolower($data->role->name) }}">
-                                        {{ $data->role->name }}
-                                    </span>
-                                @else
-                                    <span class="role-badge">N/A</span>
-                                @endif
-                            </td>
-                            <td>{{ $data->created_at->format('d-m-Y') }}</td>
-                            <td>
-                                <div class="action-buttons">
-                                    @include('voyager::bread.partials.browse-actions')
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="empty-state">
-                                <svg width="48" height="48" fill="currentColor" viewBox="0 0 20 20"
-                                    style="margin-bottom: 16px; opacity: 0.5;">
-                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <div>No users found.</div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        {{-- Single delete modal --}}
-        <div class="sp-modal delete_modal modal fade" id="delete_modal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal--header">
-                        <span class="btn--close" data-bs-dismiss="modal"></span>
-                    </div>
-                    <div class="modal-body">
-                        <h2>{{ __('voyager::generic.delete_question') }}
-                            {{ strtolower($dataType->getTranslatedAttribute('display_name_singular')) }}?
-                        </h2>
-                        <div class="opt-btn">
-                            <button type="button" class="btn-se" data-bs-dismiss="modal">{{ __('No') }}</button>
-                            <form action="#" id="delete_form" method="POST">
-                                {{ method_field('DELETE') }}
-                                {{ csrf_field() }}
-                                <input type="submit" class="btn-pr" value="{{ __('Yes') }}">
-                            </form>
-                        </div>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        {{ $users->links() }}
-    </div><!-- ./sp-row -->
-    @include('voyager::multilingual.language-selector')
-</div><!-- ./container-fluid -->
-
+<div class="table-heading-sec">
+    <h1 class="page-title">
+        {{ __('Police Station Users')}}
+    </h1>
+    @can('add', app($dataType->model_name))
+        <a href="{{ route('voyager.' . $dataType->slug . '.create') }}" class="btn btn-success">
+            <i class="voyager-plus"></i> {{ __('voyager::generic.add_new') }}
+        </a>
+    @endcan
+</div>
 @stop
+
+@section('content')
+@include('voyager::menus.partial.notice')
+
+<div class="page-content container-fluid">
+    @include('voyager::alerts')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-bordered">
+                <div class="panel-body">
+                    <div class="table-container">
+                        <table id="dataTable" class="table table-hover modern-table">
+                            <thead>
+                                <tr>
+                                    @foreach($dataType->browseRows as $row)
+                                        <th>{{ $row->display_name }}</th>
+                                    @endforeach
+                                    <th class="actions text-right">{{ __('voyager::generic.actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($dataTypeContent as $data)
+                                
+                                    <tr>
+                                        @foreach($dataType->browseRows as $row)
+                                            <td>
+                                                @if($row->type == 'image')
+                                                    <img src="@if(strpos($data->{$row->field}, 'http://') === false && strpos($data->{$row->field}, 'https://') === false){{ Voyager::image($data->{$row->field}) }}@else{{ $data->{$row->field} }}@endif"
+                                                        style="width:100px">
+                                                @elseif($row->type == 'relationship')
+                                                    @include('voyager::formfields.relationship', ['view' => 'browse','options' => $row->details])
+                                                @else
+                                                    {{ $data->{$row->field} }}
+                                                @endif
+                                            </td>
+                                        @endforeach
+                                        <td class="no-sort no-click bread-actions">
+                                            @can('delete', $data)
+                                                <div class="btn btn-sm btn-danger pull-right delete"
+                                                    data-id="{{ $data->{$data->getKeyName()} }}">
+                                                    <!-- <i class="voyager-trash"></i>  -->
+                                                    <i class="fa-regular fa-trash-can"></i> {{ __('voyager::generic.delete') }}
+                                                </div>
+                                            @endcan
+                                            @can('edit', $data)
+                                                <a href="{{ route('voyager.' . $dataType->slug . '.edit', $data->{$data->getKeyName()}) }}"
+                                                    class="btn btn-sm btn-primary pull-right edit">
+                                                    <!-- <i class="voyager-eye"></i>  -->
+                                                    <i class="fa-regular fa-eye"></i> {{ __('voyager::generic.view') }}
+                                                </a>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-danger fade" tabindex="-1" id="delete_modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="{{ __('voyager::generic.close') }}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    <i class="voyager-trash"></i> {{ __('voyager::generic.delete_question') }}
+                    {{ $dataType->getTranslatedAttribute('display_name_singular') }}?
+                </h4>
+            </div>
+            <div class="modal-footer">
+                <form action="#" id="delete_form" method="POST">
+                    {{ method_field("DELETE") }}
+                    {{ csrf_field() }}
+                    <input type="submit" class="btn btn-danger pull-right delete-confirm"
+                        value="{{ __('voyager::generic.delete_this_confirm') }} {{ $dataType->getTranslatedAttribute('display_name_singular') }}">
+                </form>
+                <button type="button" class="btn btn-default pull-right"
+                    data-dismiss="modal">{{ __('voyager::generic.cancel') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+@stop
+
 @section('javascript')
-    <!-- DataTables -->
-    <script>
-        $(document).ready(function () {
-            $('#dataTable').DataTable({
-                "order": [],
-                "language": {!! json_encode(__('voyager::datatable'), true) !!},
-                "columnDefs": [{"targets": -1, "searchable":  false, "orderable": false}]
+<!-- DataTables -->
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "order": [],
+            "language": {!! json_encode(__('voyager::datatable'), true) !!},
+            "columnDefs": [{ "targets": -1, "searchable": false, "orderable": false }]
                 @if(config('dashboard.data_tables.responsive')), responsive: true @endif
             });
         });
 
-        $('td').on('click', '.delete', function (e) {
-            $('#delete_form')[0].action = '{{ route('voyager.'.$dataType->slug.'.destroy', ['id' => '__menu']) }}'.replace('__menu', $(this).data('id'));
+    $('td').on('click', '.delete', function (e) {
+        $('#delete_form')[0].action = '{{ route('voyager.' . $dataType->slug . '.destroy', ['id' => '__menu']) }}'.replace('__menu', $(this).data('id'));
 
-            $('#delete_modal').modal('show');
-        });
-    </script>
+        $('#delete_modal').modal('show');
+    });
+</script>
 @stop
