@@ -28,6 +28,7 @@ class ComplaintController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
 
     public function store(Request $request)
     {
+
        $rules = [
             'language' => 'required|in:english,marathi',
         ];
@@ -121,6 +122,7 @@ class ComplaintController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
             'police_station_number' => $request->police_station_number_mr,
             'status'                => $request->status_mr,
             'fir_date'              => $request->fir_date_mr,
+            'language'              => $request->language,
         ];
     } else {
         $rules = [
@@ -145,6 +147,7 @@ class ComplaintController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
             'police_station_number',
             'status',
             'fir_date',
+            'language'
         ]);
     }
     $request->validate($rules);

@@ -18,7 +18,7 @@ $add  = !isset($dataTypeContent) || is_null($dataTypeContent->getKey());
                         @csrf
 
                         <div class="panel-body">
-                            <input type="hidden" id="role_id" name="role_id" value="2">
+                            <input type="hidden" id="role_id" name="role_id" value="{{ $user->role_id ?? old('role_id') ?? 2 }}">
 
                             {{-- Error Display --}}
                             @if (count($errors) > 0)
@@ -113,7 +113,7 @@ $add  = !isset($dataTypeContent) || is_null($dataTypeContent->getKey());
 
                                 </div>
                             </div>
-                            
+
                             <input type="hidden" name="station_name" id="station_name_hidden" value="">
 <input type="hidden" name="station_head_name" id="station_head_name_hidden" value="">
 <input type="hidden" name="station_head_phone" id="station_head_phone_hidden" value="">
@@ -236,7 +236,7 @@ $add  = !isset($dataTypeContent) || is_null($dataTypeContent->getKey());
     //         document.getElementById("station-fields").style.display = "block";
     //     }
     // }
-    
+
 // document.addEventListener('DOMContentLoaded', function() {
 //     // Get saved language from Blade
 //     let selectedLanguage = "{{ $user->language ?? 'english' }}";
@@ -301,7 +301,7 @@ $('#cancelLanguageBtn').on('click', function (e) {
     e.stopPropagation(); // stop bubbling
 
     // reset the tab back to currentLang
-    $('[href="#' + currentLang + '"]').tab('show'); 
+    $('[href="#' + currentLang + '"]').tab('show');
 
     pendingLang = null;
     $('#languageConfirmModal').modal('hide');

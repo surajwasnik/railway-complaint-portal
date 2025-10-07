@@ -55,31 +55,31 @@
                                 </div>
                             @endif
 
-                            @php
-                                $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
-                            @endphp
                            @php
+                                $dataTypeRows = $dataType->{$edit ? 'editRows' : 'addRows'};
+                            @endphp
+                            @php
                                 $language = ($data->language ?? null) === 'english' ? 'english' : 'marathi';
                             @endphp
 
 
 
-                        <input type="hidden" name="language" id="language" value="{{ $language }}">
-                       
+                            <input type="hidden" name="language" id="language" value="{{ $language }}">
+
                             <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="{{ $language == 'english' ? 'active' : '' }}">
-                                <a href="#english" aria-controls="english" role="tab" data-toggle="tab"
-                                   onclick="return handleLanguageChange(event, 'english')">
-                                    English
-                                </a>
-                            </li>
-                            <li role="presentation" class="{{ $language == 'marathi' ? 'active' : '' }}">
-                                <a href="#marathi" aria-controls="marathi" role="tab" data-toggle="tab"
-                                   onclick="return handleLanguageChange(event, 'marathi')">
-                                    {{ __('मराठी') }}
-                                </a>
-                            </li>
-                        </ul>
+                                <li role="presentation" class="{{ $language == 'english' ? 'active' : '' }}">
+                                    <a href="#english" aria-controls="english" role="tab" data-toggle="tab"
+                                        onclick="return handleLanguageChange(event, 'english')">
+                                        English
+                                    </a>
+                                </li>
+                                <li role="presentation" class="{{ $language == 'marathi' ? 'active' : '' }}">
+                                    <a href="#marathi" aria-controls="marathi" role="tab" data-toggle="tab"
+                                        onclick="return handleLanguageChange(event, 'marathi')">
+                                        {{ __('मराठी') }}
+                                    </a>
+                                </li>
+                            </ul>
 
 
 <div class="tab-content" style="margin-top:20px;">
@@ -97,8 +97,8 @@
             {{-- Other roles: show dropdown --}}
             <select class="form-control select2" id="station_id" name="station_id" required>
                 <option value="">{{ __('Select Police Station') }}</option>
-                @foreach(\App\Models\Station::all() as $station)
-                    <option value="{{ $station->id }}" 
+                @foreach(\App\Helpers\Helper::getStationList() as $station)
+                    <option value="{{ $station->id }}"
                         {{ (isset($data['station_id']) && $data['station_id'] == $station->id) ? 'selected' : '' }}>
                         {{ $station->station_name }}
                     </option>
@@ -109,7 +109,7 @@
         @endif
 
 
-            
+
 
         <div class="form-group col-lg-6 col-md-6">
             <label>{{__('FIR Number')}}</label>
@@ -120,7 +120,7 @@
 
         <div class="form-group col-lg-6 col-md-6">
             <label>{{__('FIR Date')}}</label>
-            
+
             <input type="date" class="form-control" id="fir_date" name="fir_date" placeholder="FIR Date"
                    value="{{ old('fir_date', isset($data->fir_date) ? \Carbon\Carbon::parse($data->fir_date)->format('Y-m-d') : '') }}" autocomplete="off" required>
             <span class="text text-danger" id="fir_date"></span>
@@ -132,7 +132,7 @@
                    value="{{$data['complainant_name'] ?? old('complainant_name')}}" autocomplete="off" required>
             <span class="text text-danger" id="complainant_name"></span>
         </div>
-        
+
         <div class="form-group col-lg-6 col-md-6">
             <label>{{__('Mobile Number')}}</label>
             <input type="number" class="form-control" id="complainant_number" name="complainant_number" placeholder="Number"
@@ -145,7 +145,7 @@
             <input type="text" class="form-control" id="officer_name" name="officer_name" placeholder="I/O Officer"
                    value="{{$data['officer_name'] ?? old('officer_name')}}" autocomplete="off" required>
             <span class="text text-danger" id="officer_name"></span>
-        </div> 
+        </div>
 
         <div class="form-group col-lg-6 col-md-6">
             <label>{{__('I/O Officer Number')}}</label>
@@ -179,7 +179,7 @@
 
     <!-- Marathi Tab -->
     <div role="tabpanel" class="tab-pane {{ $language == 'marathi' ? 'active' : '' }}" id="marathi">
-        
+
         @if($user->role_id == 2)
             {{-- Station admin: hide dropdown, add hidden input --}}
             @php
@@ -192,8 +192,8 @@
             {{-- Other roles: show dropdown --}}
             <select class="form-control select2" id="station_id_mr" name="station_id_mr" required>
                 <option value="">{{ __('Select Police Station') }}</option>
-                @foreach(\App\Models\Station::all() as $station)
-                    <option value="{{ $station->id }}" 
+                @foreach(\App\Helpers\Helper::getStationList() as $station)
+                    <option value="{{ $station->id }}"
                         {{ (isset($data['station_id']) && $data['station_id'] == $station->id) ? 'selected' : '' }}>
                         {{ $station->station_name }}
                     </option>
@@ -222,7 +222,7 @@
                    placeholder="नाव"
                    value="{{$data['complainant_name'] ?? old('complainant_name_mr')}}" autocomplete="off" >
         </div>
-        
+
         <div class="form-group col-lg-6 col-md-6">
             <label>मोबाईल नंबर</label>
             <input type="number" min="0" class="form-control" id="complainant_number_mr" name="complainant_number_mr"
@@ -265,7 +265,7 @@
                     Not Detected – Closure Report Filed
                 </option>
             </select>
-            
+
                     </div>
                 </div>
         </div>
@@ -309,30 +309,31 @@
         </div>
     </div>
     <div class="modal fade" id="languageConfirmModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-warning">
-         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Confirm Language Change</h4>
-      </div>
-      <div class="modal-body">
-        Your data may be lost if you switch the language. Do you want to continue?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelLanguageBtn">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmLanguageBtn">Yes, Continue</button>
-      </div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirm Language Change</h4>
+            </div>
+            <div class="modal-body">
+                Your data may be lost if you switch the language. Do you want to continue?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                    id="cancelLanguageBtn">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmLanguageBtn">Yes, Continue</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 @stop
 
 @section('javascript')
 <script type="text/javascript" src="{{ url('js/custom.js?v=1.0') }}"></script>
     <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.toggleswitch').bootstrapToggle();
-        $('.form-group input[type=date]').each(function (idx, elt) {
+        $('.form-group input[type=date]').each(function(idx, elt) {
             if (elt.hasAttribute('data-datepicker')) {
                 elt.type = 'text';
                 $(elt).datetimepicker($(elt).data('datepicker'));
@@ -346,7 +347,9 @@
         });
 
         @if ($isModelTranslatable)
-            $('.side-body').multilingual({"editing": true});
+            $('.side-body').multilingual({
+                "editing": true
+            });
         @endif
 
         $('.side-body input[data-slug-origin]').each(function(i, el) {
@@ -358,11 +361,14 @@
         $('.form-group').on('click', '.remove-multi-file', deleteHandler('a', true));
         $('.form-group').on('click', '.remove-single-file', deleteHandler('a', false));
 
-        $('#confirm_delete').on('click', function(){
-            $.post('{{ route('voyager.'.$dataType->slug.'.media.remove') }}', params, function (response) {
+        $('#confirm_delete').on('click', function() {
+            $.post('{{ route('voyager.' . $dataType->slug . '.media.remove') }}', params, function(
+                response) {
                 if (response && response.data && response.data.status == 200) {
                     toastr.success(response.data.message);
-                    $file.parent().fadeOut(300, function() { $(this).remove(); })
+                    $file.parent().fadeOut(300, function() {
+                        $(this).remove();
+                    })
                 } else {
                     toastr.error("Error removing file.");
                 }
@@ -372,41 +378,42 @@
 
         $('[data-toggle="tooltip"]').tooltip();
     });
-$(document).ready(function () {
-        @if($edit)
+     @if ($edit)
             let finalLang = @json($language ?? 'english');
         @else
             let storedLang = localStorage.getItem('selectedLanguage');
             let finalLang = storedLang || 'english';
         @endif
+    $(document).ready(function() {
 
         $('#language').val(finalLang);
-
         $('.nav-tabs a[href="#' + finalLang + '"]').tab('show');
         $('.nav-tabs li').removeClass('active');
         $('.nav-tabs a[href="#' + finalLang + '"]').parent().addClass('active');
 
-        $('.nav-tabs a').on('click', function () {
+        $('.nav-tabs a').on('click', function() {
             let lang = $(this).attr('href').replace('#', '');
+
             $('#language').val(lang);
             localStorage.setItem('selectedLanguage', lang);
         });
-        $('.tab-pane').not('.active').find('input, select').prop('required', false);
+        $('.tab-pane').not('.active').find('input, select, textarea').prop('required', false);
 
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $('.tab-pane').find('input, select').prop('required', false);
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            $('.tab-pane').find('input, select, textarea').prop('required', false);
             var activeTab = $(e.target).attr("href");
-            $(activeTab).find('input, select').prop('required', true);
+            $(activeTab).find('input, select, textarea').prop('required', true);
         });
     });
+
     function deleteHandler(tag, isMulti) {
         return function() {
             $file = $(this).siblings(tag);
             params = {
-                slug:   '{{ $dataType->slug }}',
-                filename:  $file.data('file-name'),
-                id:     $file.data('id'),
-                field:  $file.parent().data('field-name'),
+                slug: '{{ $dataType->slug }}',
+                filename: $file.data('file-name'),
+                id: $file.data('id'),
+                field: $file.parent().data('field-name'),
                 multi: isMulti,
                 _token: '{{ csrf_token() }}'
             }
@@ -414,24 +421,32 @@ $(document).ready(function () {
             $('#confirm_delete_modal').modal('show');
         };
     }
- let pendingLang = null;
+let pendingLang = null;
 let currentLang = "{{ $language }}";
 
 $('a[data-toggle="tab"]').on('click', function (e) {
     let lang = $(this).attr('aria-controls');
 
-    @if(isset($edit) && $edit)
+    // ✅ Skip if clicking the already active tab
+    if ($(this).parent().hasClass('active')) {
+        return;
+    }
+setLanguage(lang);
+    @if (isset($edit) && $edit)
         e.preventDefault();
         pendingLang = lang;
-        $('#languageConfirmModal').modal('show');
+        if (typeof finalLang === 'undefined' || finalLang !== lang) {
+            $('#languageConfirmModal').modal('show');
+        }
     @else
-        setLanguage(lang);
         currentLang = lang;
     @endif
 });
 
+
 $('#confirmLanguageBtn').on('click', function () {
-    if (pendingLang) {
+    if (pendingLang && (typeof finalLang === 'undefined' || finalLang !== pendingLang)) {
+
         if (currentLang === 'marathi') {
             $('#station_id, #fir_number, #fir_date, #complainant_name, #officer_name, #police_station_number').val('');
             $('[name="status"]').val('');
@@ -440,7 +455,7 @@ $('#confirmLanguageBtn').on('click', function () {
             $('[name="status_mr"]').val('');
         }
 
-        setLanguage(pendingLang);
+        //setLanguage(lang);
         $('[href="#' + pendingLang + '"]').tab('show');
 
         currentLang = pendingLang;
@@ -448,22 +463,20 @@ $('#confirmLanguageBtn').on('click', function () {
         $('#languageConfirmModal').modal('hide');
     }
 });
+    $('#cancelLanguageBtn').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-$('#cancelLanguageBtn').on('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
+        $('[href="#' + currentLang + '"]').tab('show');
 
-    $('[href="#' + currentLang + '"]').tab('show'); 
-
-    pendingLang = null;
-    $('#languageConfirmModal').modal('hide');
-});
+        pendingLang = null;
+        $('#languageConfirmModal').modal('hide');
+    });
 
 
-function setLanguage(lang) {
-    $('#language').val(lang);
-}
-
+    function setLanguage(lang) {
+        $('#language').val(lang);
+    }
 
 </script>
 

@@ -124,7 +124,7 @@
                             @if($user->role_id == 1)
                             <select id="filter_station" class="form-control select2">
                                 <option value="">All Stations</option>
-                                @foreach(App\Models\Station::all() as $station)
+                                @foreach(\App\Helpers\Helper::getStationList() as $station)
                                     <option value="{{ $station->station_name }}">{{ $station->station_name }}</option>
                                 @endforeach
                             </select>

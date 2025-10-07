@@ -102,4 +102,11 @@ class Helper
 
         return $query->count();
     }
+    public static function getStationList()
+    {
+        return Station::select('stations.id', 'stations.station_name')
+            ->join('users as u', 'stations.user_id', '=', 'u.id')
+            ->where('u.role_id', '!=', 1)
+            ->get();
+    }
 }

@@ -181,12 +181,12 @@ class UserController extends VoyagerBaseController
         }
         return Voyager::view($view, compact('roles','user'));
     }
-    
+
     public function store(Request $request)
     {
         $slug = 'users';
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
-    
+
         if ($request->language === 'english') {
             $request->merge([
                 'station_name' => $request->station_name_en,
@@ -200,7 +200,7 @@ class UserController extends VoyagerBaseController
                 'station_head_phone' => $request->station_head_phone_mr,
             ]);
         }
-    
+
         $request->validate([
             'role_id' => 'required|exists:roles,id',
             'email' => 'required|email|unique:users,email',
@@ -211,14 +211,14 @@ class UserController extends VoyagerBaseController
             'status' => 'in:active,inactive,suspended',
             'language' => 'nullable'
         ]);
-    
+
         $station = Station::create([
             'station_name' => $request->station_name,
             'station_head_name' => $request->station_head_name,
             'station_head_phone' => $request->station_head_phone,
             'status' => $request->status ?? 'active',
         ]);
-    
+
         $user = User::create([
             'role_id' => $request->role_id,
             'name' => $request->station_head_name,
@@ -226,9 +226,9 @@ class UserController extends VoyagerBaseController
             'password' => Hash::make($request->password),
             'language' => $request->language,
         ]);
-    
+
         $station->update(['user_id' => $user->id]);
-    
+
         return redirect()->route("voyager.{$dataType->slug}.index")
             ->with(['message' => "User and Station registered successfully!", 'alert-type' => 'success']);
     }
@@ -237,11 +237,11 @@ class UserController extends VoyagerBaseController
     {
         $slug = 'users';
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
-    
+
             if (strlen($dataType->model_name) != 0) {
                 $model = app($dataType->model_name);
                 $query = $model->query();
-    
+
                 if ($model && in_array(SoftDeletes::class, class_uses_recursive($model))) {
                     $query = $query->withTrashed();
                 }
@@ -252,7 +252,7 @@ class UserController extends VoyagerBaseController
             } else {
                 $dataTypeContent = DB::table($dataType->name)->where('id', $id)->first();
             }
-    
+
             foreach ($dataType->editRows as $key => $row) {
                 $dataType->editRows[$key]['col_width'] = isset($row->details->width) ? $row->details->width : 100;
             }
@@ -272,15 +272,18 @@ class UserController extends VoyagerBaseController
     public function update(Request $request, $id)
 {
     $user = User::with('station')->findOrFail($id);
-
     $request->validate([
         'role_id' => 'required|exists:roles,id',
         'email' => 'required|email|unique:users,email,' . $user->id,
         'password' => 'nullable|min:6|confirmed',
         'status' => 'in:active,inactive,suspended',
         'language' => 'nullable|in:english,marathi',
-        'station_head_phone_en' => 'nullable|digits_between:10,15',
-        'station_head_phone_mr' => 'nullable|digits_between:10,15',
+        'station_name_en' => 'required_if:language,english',
+        'station_head_name_en' => 'required_if:language,english',
+        'station_head_phone_en' => 'nullable|required_if:language,english|digits_between:10,15',
+        'station_name_mr' => 'required_if:language,marathi',
+        'station_head_name_mr' => 'required_if:language,marathi',
+        'station_head_phone_mr' => 'nullable|required_if:language,marathi|digits_between:10,15',
     ]);
 
     if ($request->language === 'marathi') {
@@ -301,15 +304,16 @@ class UserController extends VoyagerBaseController
         'password' => $request->password ? Hash::make($request->password) : $user->password,
         'language' => $request->language,
     ]);
-
-    // Update Station
-    $user->station->update([
-        'station_name' => $stationName,
-        'station_head_name' => $stationHeadName,
-        'station_head_phone' => $stationHeadPhone,
-        'status' => $request->status ?? 'active',
-    ]);
-    
+    // Update or create Station
+    Station::updateOrCreate(
+        ['user_id' => $user->id], // condition to find the station
+        [
+            'station_name'      => $stationName,
+            'station_head_name' => $stationHeadName,
+            'station_head_phone'=> $stationHeadPhone,
+            'status'            => $request->status ?? 'active',
+        ]
+    );
     return redirect()->route("voyager.users.index")->with([
         'message' => "Police station user updated successfully!",
         'alert-type' => 'success',
